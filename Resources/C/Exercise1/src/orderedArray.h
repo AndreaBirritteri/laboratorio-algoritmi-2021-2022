@@ -1,10 +1,18 @@
-#ifndef LABORATORIO_ALGORITMI_2021_2022_LINK_H
-#define LABORATORIO_ALGORITMI_2021_2022_LINK_H
+#ifndef LABORATORIO_ALGORITMI_2021_2022_ORDEREDARRAY_H
+#define LABORATORIO_ALGORITMI_2021_2022_ORDEREDARRAY_H
 
-
-//An array of any number of elements of any kind, ordered in non descending order
+//An array of any number of elements of any kind, ordered in non-descending order
 //according to a specific precedence relation.
 typedef struct _OrderedArray OrderedArray;
+
+//It represents the internal structure of this implementation of ordered arrays
+struct _OrderedArray
+{
+    void **array;
+    size_t el_num; //numero di elementi
+    size_t array_capacity; //capacita dell'array
+    int (*precedes)(void *, void *);
+};
 
 //It creates an empty ordered array and returns the created ordered array.
 //It accepts as input a pointer to a function implementing the
@@ -15,12 +23,12 @@ typedef struct _OrderedArray OrderedArray;
 //The input parameter cannot be NULL.
 OrderedArray *ordered_array_create(int (*precedes)(void *, void *));
 
-//It accepts as input a pointer to an ordered array and it returns 1 iff
+//It accepts as input a pointer to an ordered array, and it returns 1 iff
 //the ordered array is empty (0 otherwise).
 //The input parameter cannot be NULL.
 int ordered_array_is_empty(OrderedArray *);
 
-//It accepts as input a pointer to an ordered array and it
+//It accepts as input a pointer to an ordered array, and it
 //returns the number of elements currently stored into the array.
 //The input parameter cannot be NULL.
 size_t ordered_array_size(OrderedArray *);
@@ -36,7 +44,7 @@ void ordered_array_add(OrderedArray *, void *);
 //within the ordered array.
 void *ordered_array_get(OrderedArray *, size_t i);
 
-//It accepts as input a pointer to an ordered array and
+//It accepts as input a pointer to an ordered array, and
 //it frees the memory allocated to store the ordered array.
 //It does not free the memory allocated to store the array elements,
 //since freeing that memory is responsibility of the function where
@@ -44,6 +52,6 @@ void *ordered_array_get(OrderedArray *, size_t i);
 //The input parameters cannot be NULL.
 void ordered_array_free_memory(OrderedArray *);
 
-void performInsertionSort(OrderedArray *ordered_array);
+void print_array(OrderedArray *ordered_array);
 
-#endif //LABORATORIO_ALGORITMI_2021_2022_LINK_H
+#endif //LABORATORIO_ALGORITMI_2021_2022_ORDEREDARRAY_H

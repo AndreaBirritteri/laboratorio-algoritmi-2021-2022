@@ -13,9 +13,11 @@ include_directories(../Unity)
 
 add_executable(laboratorio_algoritmi_2021_2022
         files/piccolo.csv
-        src/binaryInsertionSort.c
-        src/link.h
+        src/orderedArray.c
+        src/orderedArray.h
         src/main.c
         ../Unity/unity.c
         ../Unity/unity.h
-        ../Unity/unity_internals.h)
+        ../Unity/unity_internals.h
+        src/sorting.h
+        src/sorting.c)

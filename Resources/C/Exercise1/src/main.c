@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/time.h>
-#include "link.h"
+#include "orderedArray.h"
+#include "sorting.h"
 
 struct record
 {
@@ -171,7 +172,8 @@ static void test_with_comparison_function(const char *file_name, int (*compare)(
   time_taken = 0;
 
   gettimeofday(&start, NULL);
-  performInsertionSort(array);
+  insertionSort(array);
+  print_array(array);
   gettimeofday(&end, NULL);
   time_taken = (double)end.tv_sec + (double)end.tv_usec / 1e6 - (double)start.tv_sec - (double)start.tv_usec / 1e6;
 
