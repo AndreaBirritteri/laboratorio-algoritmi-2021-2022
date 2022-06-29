@@ -94,7 +94,7 @@ void print_array(OrderedArray *ordered_array) {
   int c = 0;
   struct record *rec;
 
-  for (c = 0; c < ordered_array->el_num - 1; c++) {
+  for (c = 0; c < ordered_array->el_num; c++) {
     rec = ordered_array_get(ordered_array, c);
     printf("%d,\t\t%s,\t\t%d,\t\t%f\n", rec->int_id, rec->string_field1, rec->int_field2, rec->float_field3);
   }
