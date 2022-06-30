@@ -13,10 +13,17 @@
 //array
 static size_t binarySearch(OrderedArray *ordered_array, size_t low, size_t high, void *item);
 
-void swap(OrderedArray *a, OrderedArray *b) {
-  OrderedArray t = *a;
-  *a = *b;
-  *b = t;
+struct record {
+    int int_id;
+    char *string_field1;
+    int int_field2;
+    float float_field3;
+};
+
+void swap(OrderedArray *ordered_array, size_t i, size_t j) {
+  void *temp = ordered_array->array[i];
+  ordered_array->array[i] = ordered_array->array[j];
+  ordered_array->array[j] = temp;
 }
 
 static size_t binarySearch(OrderedArray *ordered_array, size_t low, size_t high, void *item) {
@@ -67,7 +74,7 @@ size_t partition(OrderedArray *ordered_array, size_t low, size_t high) {
   void *pivot = ordered_array_get(ordered_array, high);
 
   // pointer for greater element
-  size_t i = (low - 1);
+  size_t i = (low - 1 + 1);
 
   // traverse each element of the array
   // compare them with the pivot
@@ -78,26 +85,26 @@ size_t partition(OrderedArray *ordered_array, size_t low, size_t high) {
       i++;
 
       // swap element at i with element at j
-      swap(&ordered_array[i], &ordered_array[j]);
+      swap(ordered_array, i - 1, j);
     }
   }
 
   // swap the pivot element with the greater element at i
-  swap(&ordered_array[i], &ordered_array[high]);
+  swap(ordered_array, i + 1 - 1, high);
 
   // return the partition point
-  return (i + 1);
+  return (i + 1 - 1);
 }
 
 void quickSortRecursive(OrderedArray *ordered_array, size_t low, size_t high) {
-  if (low < high) {
+  if ((ssize_t)low < (ssize_t)high) {
     // find the pivot element such that
     // elements smaller than pivot are on left of pivot
     // elements greater than pivot are on right of pivot
     size_t pi = partition(ordered_array, low, high);
 
     // recursive call on the left of pivot
-    quickSortRecursive(ordered_array, low, pi - 1);
+    quickSortRecursive(ordered_array, low, pi - 1);//check overflow
 
     // recursive call on the right of pivot
     quickSortRecursive(ordered_array, pi + 1, high);
@@ -105,5 +112,5 @@ void quickSortRecursive(OrderedArray *ordered_array, size_t low, size_t high) {
 }
 
 void quickSort(OrderedArray *ordered_array) {
-  quickSortRecursive(ordered_array, 1, ordered_array->el_num - 1);
+  quickSortRecursive(ordered_array, 0, ordered_array->el_num - 1);
 }
