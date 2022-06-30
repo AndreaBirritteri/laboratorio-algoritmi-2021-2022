@@ -13,13 +13,6 @@
 //array
 static size_t binarySearch(OrderedArray *ordered_array, size_t low, size_t high, void *item);
 
-struct record {
-    int int_id;
-    char *string_field1;
-    int int_field2;
-    float float_field3;
-};
-
 void swap(OrderedArray *ordered_array, size_t i, size_t j) {
   void *temp = ordered_array->array[i];
   ordered_array->array[i] = ordered_array->array[j];
@@ -43,7 +36,7 @@ static size_t binarySearch(OrderedArray *ordered_array, size_t low, size_t high,
   return mid;
 }
 
-static void recursiveInsertionSort(OrderedArray *ordered_array, size_t high) {
+static void startInsertionSort(OrderedArray *ordered_array, size_t high) {
   size_t index = 0, i = 0;
   void *tmp;
 
@@ -64,7 +57,7 @@ static void recursiveInsertionSort(OrderedArray *ordered_array, size_t high) {
 }
 
 void insertionSort(OrderedArray *ordered_array) {
-  recursiveInsertionSort(ordered_array, ordered_array->el_num - 1);
+  startInsertionSort(ordered_array, ordered_array->el_num - 1);
 }
 
 // function to find the partition position
@@ -104,7 +97,7 @@ void quickSortRecursive(OrderedArray *ordered_array, size_t low, size_t high) {
     size_t pi = partition(ordered_array, low, high);
 
     // recursive call on the left of pivot
-    quickSortRecursive(ordered_array, low, pi - 1);//check overflow
+    quickSortRecursive(ordered_array, low, pi - 1);
 
     // recursive call on the right of pivot
     quickSortRecursive(ordered_array, pi + 1, high);
