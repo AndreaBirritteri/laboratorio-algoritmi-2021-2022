@@ -83,12 +83,24 @@ void *ordered_array_get(OrderedArray *ordered_array, size_t i) {
   return (ordered_array->array)[i];
 }
 
-struct record {
+struct record { //TODO check were write this
     int int_id;
     char *string_field1;
     int int_field2;
     float float_field3;
 };
+
+void swap_array_record(OrderedArray *ordered_array, size_t i, size_t j) {
+  size_t size = sizeof (struct record);
+  struct record *v1 = ordered_array_get(ordered_array, i);
+  struct record *v2 = ordered_array_get(ordered_array, j);
+  struct record *temp = malloc(size);
+
+  memmove(temp, v1, size);
+  memmove(v1, v2, size);
+  memmove(v2, temp, size);
+  free(temp);
+}
 
 void print_array(OrderedArray *ordered_array) {
   int c = 0;

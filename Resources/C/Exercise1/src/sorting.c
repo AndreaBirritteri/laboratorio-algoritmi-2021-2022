@@ -11,14 +11,6 @@
 //It returns the index
 //The input parameters cannot be NULL or out of bounds of the
 //array
-static size_t binarySearch(OrderedArray *ordered_array, size_t low, size_t high, void *item);
-
-void swap(OrderedArray *ordered_array, size_t i, size_t j) {
-  void *temp = ordered_array->array[i];
-  ordered_array->array[i] = ordered_array->array[j];
-  ordered_array->array[j] = temp;
-}
-
 static size_t binarySearch(OrderedArray *ordered_array, size_t low, size_t high, void *item) {
   size_t mid;
 
@@ -61,13 +53,16 @@ void insertionSort(OrderedArray *ordered_array) {
 }
 
 // function to find the partition position
-size_t partition(OrderedArray *ordered_array, size_t low, size_t high) {
+
+static size_t partition(OrderedArray *ordered_array, size_t low, size_t high) {
 
   // select the rightmost element as pivot
   void *pivot = ordered_array_get(ordered_array, high);
 
   // pointer for greater element
-  size_t i = (low - 1 + 1);
+  size_t i = (low - 1);
+
+  //printf("%zu - %zu\n", low, high);
 
   // traverse each element of the array
   // compare them with the pivot
@@ -75,35 +70,67 @@ size_t partition(OrderedArray *ordered_array, size_t low, size_t high) {
     if ((*(ordered_array->precedes))(ordered_array_get(ordered_array, j), pivot)) {
       // if element smaller than pivot is found
       // swap it with the greater element pointed by i
+
+      //if (i > 20000000 - 3)
+      //printf("%zu - %zu \n", i, i + 1);
+
+      //if (high - low < 40000)
+        //printf("%zu\n", high - low);
+
+      //if (high - low == 100000)
+      //printf("%zu - %zu \n", i, i + 1);
+
+      //if (high - low == 1)
+      //printf("%zu - %zu \n", i, i + 1);
+
       i++;
 
       // swap element at i with element at j
-      swap(ordered_array, i - 1, j);
+      swap_array_record(ordered_array, i, j);
     }
   }
 
   // swap the pivot element with the greater element at i
-  swap(ordered_array, i + 1 - 1, high);
+  swap_array_record(ordered_array, i + 1, high);
 
   // return the partition point
-  return (i + 1 - 1);
+  return (i + 1);
+}
+#import <time.h>
+size_t partition_r(OrderedArray *ordered_array, size_t low, size_t high)
+{
+  // Generate a random number in between
+  // low .. high
+  srand(time(NULL));
+  size_t random = low + rand() % (high - low);
+
+  // Swap A[random] with A[high]
+  swap_array_record(ordered_array, random, high);
+
+  return partition(ordered_array, low, high);
 }
 
-void quickSortRecursive(OrderedArray *ordered_array, size_t low, size_t high) {
-  if ((ssize_t)low < (ssize_t)high) {
+static void quickSortRecursive(OrderedArray *ordered_array, size_t low, size_t high, size_t arraySize) {
+  if (high >= arraySize) {
+    return;
+  }
+
+  if (low < high) {
     // find the pivot element such that
     // elements smaller than pivot are on left of pivot
     // elements greater than pivot are on right of pivot
-    size_t pi = partition(ordered_array, low, high);
+    size_t pi = partition_r(ordered_array, low, high);
 
     // recursive call on the left of pivot
-    quickSortRecursive(ordered_array, low, pi - 1);
-
+    quickSortRecursive(ordered_array, low, pi - 1, arraySize);
     // recursive call on the right of pivot
-    quickSortRecursive(ordered_array, pi + 1, high);
+
+    quickSortRecursive(ordered_array, pi + 1, high, arraySize);
+
   }
 }
 
 void quickSort(OrderedArray *ordered_array) {
-  quickSortRecursive(ordered_array, 0, ordered_array->el_num - 1);
+  size_t arraySize = ordered_array->el_num;
+  quickSortRecursive(ordered_array, 0, ordered_array->el_num - 1, arraySize);
 }

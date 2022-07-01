@@ -54,4 +54,6 @@ void ordered_array_free_memory(OrderedArray *);
 
 void print_array(OrderedArray *ordered_array);
 
+void swap_array_record(OrderedArray *ordered_array, size_t i, size_t j);
+
 #endif //LABORATORIO_ALGORITMI_2021_2022_ORDEREDARRAY_H
