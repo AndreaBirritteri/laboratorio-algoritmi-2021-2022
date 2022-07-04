@@ -55,6 +55,9 @@ void insertionSort(OrderedArray *ordered_array) {
 
 // function to find the partition position
 static ssize_t partition(OrderedArray *ordered_array, ssize_t low, ssize_t high) {
+  ssize_t midPosition = (high - low) / 2;
+  swap_array_record(ordered_array, low, midPosition);
+
   void *pivot = ordered_array_get(ordered_array, low);
   ssize_t i = low + 1;
   ssize_t j = high;
@@ -99,8 +102,5 @@ static void quickSortRecursive(OrderedArray *ordered_array, ssize_t low, ssize_t
 }
 
 void quickSort(OrderedArray *ordered_array) {
-  // Generate a random number in between
-  // low .. high
-  srand(time(NULL));
   quickSortRecursive(ordered_array, 0, (ssize_t) (ordered_array->el_num) - 1);
 }
