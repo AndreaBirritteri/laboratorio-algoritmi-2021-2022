@@ -5,6 +5,8 @@
 #include "orderedArray.h"
 #include "sorting.h"
 
+#define MAX_LINES 20000000
+
 struct record {
     int int_id;
     char *string_field1;
@@ -95,7 +97,8 @@ static void load_array(const char *file_name, OrderedArray *array) {
     exit(EXIT_FAILURE);
   }
 
-  while (fgets(buffer, buf_size, fp) != NULL) {
+  int i = 0;
+  while (fgets(buffer, buf_size, fp) != NULL && i < MAX_LINES) {
     read_line_p = malloc((strlen(buffer) + 1) * sizeof(char));
     if (read_line_p == NULL) {
       fprintf(stderr, "main: unable to allocate memory for the read line");
@@ -130,6 +133,7 @@ static void load_array(const char *file_name, OrderedArray *array) {
 
     ordered_array_add(array, (void *) record_p);
     free(read_line_p);
+    i++;
   }
   fclose(fp);
 }
@@ -163,7 +167,7 @@ static void test_with_comparison_function(const char *file_name, const char *met
   time_taken = (double) end.tv_sec + (double) end.tv_usec / 1e6 - (double) start.tv_sec - (double) start.tv_usec / 1e6;
 
   printf("\nArray ordered in: %fs\n\n", time_taken);
-  print_array(array);
+  //print_array(array);
   free_array(array);
 }
 
@@ -179,8 +183,7 @@ int main(int argc, char const *argv[]) {
     printf("\t1 - Quick Sort\n");
     exit(EXIT_FAILURE);
   }
-  if (strcmp(argv[2], "0") != 0 && strcmp(argv[2], "1") != 0)
-  {
+  if (strcmp(argv[2], "0") != 0 && strcmp(argv[2], "1") != 0) {
     fprintf(stderr, "\"%s\" not admitted. You must use 0 for Binary Insertion Sort, or 1 for Quick Sort", argv[2]);
     exit(EXIT_FAILURE);
   }
@@ -188,9 +191,9 @@ int main(int argc, char const *argv[]) {
   printf("\n------------STRING------------\n");
   test_with_comparison_function(argv[1], argv[2], precedes_record_string_field);
   printf("\n\n------------INT------------\n");
-  test_with_comparison_function(argv[1], argv[2], precedes_record_int_field);
+  //test_with_comparison_function(argv[1], argv[2], precedes_record_int_field);
   printf("\n\n------------FLOAT------------\n");
-  test_with_comparison_function(argv[1], argv[2], precedes_record_float_field);
+  //test_with_comparison_function(argv[1], argv[2], precedes_record_float_field);
 
   return (EXIT_SUCCESS);
 }
