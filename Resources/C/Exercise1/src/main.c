@@ -7,6 +7,7 @@
 
 #define MAX_LINES 20000000
 
+
 struct record {
     int int_id;
     char *string_field1;
