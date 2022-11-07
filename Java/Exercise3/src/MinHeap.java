@@ -23,6 +23,7 @@ public class MinHeap<T extends Comparable<T>> {
         while (i > 0 && heap.get(i).compareTo(heap.get(parent(i))) < 0) {
             swap(i, parent(i));
             i = parent(i);
+            //fgssdersgwsfgerwsgr
         }
     }
 
