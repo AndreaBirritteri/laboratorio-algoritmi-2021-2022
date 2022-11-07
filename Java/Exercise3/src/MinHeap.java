@@ -1,30 +1,33 @@
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Objects;
 
 public class MinHeap<T extends Comparable<T>> {
-    private final ArrayList<T> heap;
 
-    /**
-     * Constructor
-     */
+
+    private ArrayList<T> heap;
+
     public MinHeap() {
         heap = new ArrayList<>();
     }
 
-    /**
-     * Insert element into the heap
-     *
-     * @param element the element to insert
-     */
-    public void insert(T element) {
-        heap.add(element);
-        int i = heap.size() - 1;
 
-        while (i > 0 && heap.get(i).compareTo(heap.get(parent(i))) < 0) {
-            swap(i, parent(i));
-            i = parent(i);
-            //fgssdersgwsfgerwsgr
-        }
+    private int leftChild(int i) {
+        return 2 * i + 1;
+    }
+
+
+    private int rightChild(int i) {
+        return 2 * (i + 1);
+    }
+
+
+    private int parent(int i) {
+        return (i - 1) / 2;
+    }
+
+
+    public boolean isEmpty() {
+        return heap.isEmpty();
     }
 
     public int size() {
@@ -32,149 +35,106 @@ public class MinHeap<T extends Comparable<T>> {
     }
 
 
-    /**
-     * It returns the index of the node's parent
-     * (Parent of root is -1)
-     *
-     * @param i index of the child
-     * @return index of the parent of node i
-     */
-    private static int parent(int i) {
-        return (i - 1) / 2;
+    public String toString() {
+        return "the heap: " + heap;
     }
 
-    /**
-     * It returns the index of the node's left child
-     *
-     * @param i index of the parent node
-     * @return index of the left child of node i
-     */
-    private static int leftChild(int i) {
-        return 2 * i + 1;
+    public void insert(T v) {
+        heap.add(v);
+        int i = heap.size() - 1;
+        while (i > 0 && v.compareTo(heap.get(parent(i))) < 0) {
+            heap.set(i, heap.get(parent(i)));
+            heap.set(parent(i), v);
+            i = parent(i);
+        }
     }
 
+    private void heapify(int i) {
+        int size = heap.size();
+        if (size > 0) {
+            int l = leftChild(i);
+            int r = rightChild(i);
+            int min;
+            if (l < size && heap.get(i).compareTo(heap.get(l)) > 0)
+                min = l;
+            else
+                min = i;
+            if (r < size && heap.get(min).compareTo(heap.get(r)) > 0)
+                min = r;
 
-    /**
-     * It returns the index of the node's right child
-     *
-     * @param i index of parent
-     * @return the index of the right child of node i
-     */
-    private static int rightChild(int i) {
-        return 2 * i + 2;
+            if (min != i) {
+                T t = heap.get(i);
+                heap.set(i, heap.get(min));
+                heap.set(min, t);
+                heapify(min);
+            }
+        }
     }
 
+    public void buildHeap(ArrayList<T> in) {
+        heap = in;
+        for (int i = (heap.size() - 2) / 2; i >= 0; i--)
+            heapify(i);
+    }
 
-    /**
-     * Return the minimum element end extract it from the heap
-     *
-     * @return the element with the minimum element, or null if the heap is null.
-     */
-    public T extractMin() {
-        if (heap.size() <= 0)
+    public ArrayList<T> sort() {
+        ArrayList<T> res = new ArrayList<>();
+        while (!isEmpty()) {
+            res.add(extract());
+        }
+        return res;
+    }
+
+    public T extract() {
+        if (heap.isEmpty())
             return null;
         else {
-            T minVal = heap.get(0);
-            heap.set(0, heap.get(heap.size() - 1));
+            T res = heap.get(0);
+            T newRoot = heap.get(heap.size() - 1);
+            heap.set(0, newRoot);
             heap.remove(heap.size() - 1);
-            minHeapify(0);
-            return minVal;
+            heapify(0);
+            return res;
+        }
+
+    }
+
+
+    public void decreaseKey(int i, T key) {
+        if (heap.get(i).compareTo(key) < 0) {
+            throw new IllegalArgumentException("Key is larger than the original key");
+        }
+
+        heap.set(i, key);
+        int parent = parent(i);
+        while (i > 0 && heap.get(parent).compareTo(heap.get(i)) > 0) {
+            swap(i, parent);
+            i = parent;
+            parent = parent(parent);
         }
     }
 
-
-    /**
-     * Is the heap empty?
-     *
-     * @return true if the heap is empty, false if it's not empty.
-     */
-    public boolean isEmpty() {
-        return heap.size() == 0;
-    }
-
-
-    /**
-     * It returns the minimum, but it doesn't remove it from the heap.
-     *
-     * @return the minimum element, or null if the heap.
-     */
-    public T minimum() {
-        if (heap.size() <= 0)
-            return null;
-        else
-            return heap.get(0);
-    }
-
-    /**
-     * Restore the min-heap property.
-     *
-     * @param i the position where to start restoring
-     */
-    private void minHeapify(int i) {
-        int left = leftChild(i);
-        int right = rightChild(i);
-        int min;
-        if (left <= heap.size() - 1 && heap.get(left).compareTo(heap.get(i)) < 0)
-            min = left;
-        else
-            min = i;
-
-        if (right <= heap.size() - 1 && heap.get(right).compareTo(heap.get(min)) < 0)
-            min = right;
-
-        if (min != i) {
-            swap(i, min);
-            minHeapify(min);
-        }
-    }
-
-    /**
-     * Swap two locations i and j in the heap.
-     *
-     * @param i first position
-     * @param j second position
-     */
     private void swap(int i, int j) {
         T t = heap.get(i);
         heap.set(i, heap.get(j));
         heap.set(j, t);
     }
 
-    public void printArray() {
-        System.out.println(Arrays.toString(heap.toArray()));
+    public boolean contains(T v) {
+        return heap.contains(v);
     }
 
-    public void printHeap() {
-        for (int i = 0; i < (heap.size() / 2); i++) {
-            System.out.print(
-                    " PARENT : " + heap.get(i)
-                            + " LEFT CHILD : " + heap.get(leftChild(i))
-                            + " RIGHT CHILD :" + heap.get(rightChild(i)));
-            System.out.println();
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MinHeap<?> minHeap)) return false;
+        return Objects.equals(heap, minHeap.heap);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(heap);
     }
 
 
-    public static void main(String[] arg) {
-
-        System.out.println("min heap: ");
-
-        MinHeap<Integer> minHeap = new MinHeap<>();
-
-        minHeap.insert(5);
-        minHeap.insert(3);
-        minHeap.insert(17);
-        minHeap.insert(10);
-        minHeap.insert(84);
-        minHeap.insert(19);
-        minHeap.insert(6);
-        minHeap.insert(22);
-        minHeap.insert(9);
-
-        minHeap.printArray();
-        minHeap.printHeap();
-
-        System.out.println();
-        System.out.println("min -> " + minHeap.minimum());
-    }
 }
