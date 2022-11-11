@@ -53,54 +53,37 @@ void insertionSort(OrderedArray *ordered_array) {
   startInsertionSort(ordered_array, ordered_array->el_num - 1);
 }
 
-// function to find the partition position
-static ssize_t partition(OrderedArray *ordered_array, ssize_t low, ssize_t high) {
-  ssize_t midPosition = (high - low) / 2;
-  swap_array_record(ordered_array, low, midPosition);
 
-  void *pivot = ordered_array_get(ordered_array, low);
-  ssize_t i = low + 1;
-  ssize_t j = high;
+static void quickSortRecursive(OrderedArray *ordered_array, ssize_t left, ssize_t right) {
+  //printf("%zd - %zd\n", left, right);
 
-  //printf("%zu - %zu\n", low, high);
+  ssize_t midPosition = (left + right) / 2;
+
+  void *pivot = ordered_array_get(ordered_array, midPosition);
+  ssize_t i = left;
+  ssize_t j = right;
 
   while (i <= j) {
-    //printf("%d\n", j - i);
+
     if ((*(ordered_array->precedes))(ordered_array_get(ordered_array, i), pivot) > 0) {
       i = i + 1;
     } else {
-      if (((*(ordered_array->precedes))(ordered_array_get(ordered_array, j), pivot)) <= 0) {
+      if (((*(ordered_array->precedes))(ordered_array_get(ordered_array, j), pivot)) < 0) {
         j = j - 1;
       } else {
         swap_array_record(ordered_array, i, j);
-        //printf("swap %d, %d \n", i, j);
         i = i + 1;
         j = j - 1;
       }
     }
   }
-  swap_array_record(ordered_array, low, j);
-  //printf("swap low %d, %d \n", low, j);
 
-  //print_array(ordered_array);
-  return j;
-}
-
-static void quickSortRecursive(OrderedArray *ordered_array, ssize_t low, ssize_t high) {
-  //printf(" low: %d - high: %d\n");
-
-  if (high - low + 1 > 1) {
-    //printf("%d size \n", high - low);
-    ssize_t pi = partition(ordered_array, low, high);
-    //printf("%d pi \n", pi);
-
-    quickSortRecursive(ordered_array, low, pi);
-
-    quickSortRecursive(ordered_array, pi + 1, high);
-
-  }
+  if (left < j)
+    quickSortRecursive(ordered_array, left, j);
+  if (i < right)
+    quickSortRecursive(ordered_array, i, right);
 }
 
 void quickSort(OrderedArray *ordered_array) {
-  quickSortRecursive(ordered_array, 0, (ssize_t) (ordered_array->el_num) - 1);
+  quickSortRecursive(ordered_array, 0, (ssize_t)(ordered_array->el_num) - 1);
 }

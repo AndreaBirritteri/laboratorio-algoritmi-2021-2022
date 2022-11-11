@@ -192,9 +192,9 @@ int main(int argc, char const *argv[]) {
   printf("\n------------STRING------------\n");
   test_with_comparison_function(argv[1], argv[2], precedes_record_string_field);
   printf("\n\n------------INT------------\n");
-  //test_with_comparison_function(argv[1], argv[2], precedes_record_int_field);
+  test_with_comparison_function(argv[1], argv[2], precedes_record_int_field);
   printf("\n\n------------FLOAT------------\n");
-  //test_with_comparison_function(argv[1], argv[2], precedes_record_float_field);
+  test_with_comparison_function(argv[1], argv[2], precedes_record_float_field);
 
   return (EXIT_SUCCESS);
 }
