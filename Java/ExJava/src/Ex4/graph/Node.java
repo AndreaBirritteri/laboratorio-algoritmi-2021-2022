@@ -1,15 +1,15 @@
 package Ex4.graph;
 
-public class Node implements Comparable<Node> {
-    public String node;
-    public Double cost;
-    public Node(String node, Double cost) {
+public class Node<N, T extends Number> implements Comparable<Node<N, T>> {
+    public N node;
+    public T cost;
+    public Node(N node, T cost) {
         this.node = node;
         this.cost = cost;
     }
 
     @Override
     public int compareTo(Node o) {
-        return this.cost.compareTo(o.cost);
+        return Double.compare(this.cost.doubleValue(), o.cost.doubleValue());
     }
 }

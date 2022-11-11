@@ -1,5 +1,7 @@
 package Ex4.graph;
 
+import Ex3.MinHeap;
+
 import java.util.*;
 
 
@@ -184,6 +186,80 @@ public class Graph<N, T extends Number> {
                     + e.getLabel() + ";");
             c++;
         }
+    }
+
+    MinHeap<Node<N, Double>> heap;
+    Set<N> visited;
+    HashMap<N, Double> distance;
+    Set<N> nodes;
+    Map<N, N> paths;
+
+    public void dijkstra(N source) throws GraphException {
+        heap = new MinHeap<>();
+        visited = new HashSet<>();
+        distance = new HashMap<>();
+        paths = new HashMap<>();
+        nodes = this.getNodes();
+
+        for (N node : nodes) {
+            distance.putIfAbsent(node, Double.POSITIVE_INFINITY);
+        }
+
+        heap.insert(new Node<>(source, 0.0));
+        distance.replace(source, 0.0);
+
+        while (visited.size() != nodes.size()) {
+            if (heap.isEmpty()) {
+                return;
+            }
+
+            N u = heap.extract().node;
+            if (visited.contains(u)) {
+                continue;
+            }
+            visited.add(u);
+            graph_adjacentNodes(u);
+        }
+    }
+
+    public void graph_adjacentNodes(N u) throws GraphException {
+        double edgeDistance;
+        double newDistance;
+
+        List<Edge<N, T>> adjList = this.getAdjList(u);
+
+        for (Edge<N, T> stringDoubleEdge : adjList) {
+            Node<N, T> v = new Node<>(stringDoubleEdge.getDstNode(), stringDoubleEdge.getLabel());
+
+            if (!visited.contains(v.node)) {
+                edgeDistance = v.cost.doubleValue();
+                newDistance = distance.get(u) + edgeDistance;
+
+                if (newDistance < distance.get(v.node)) {
+                    distance.replace(v.node, newDistance);
+                    paths.put(v.node, u);
+                }
+
+                heap.insert(new Node<>(v.node, distance.get(v.node)));
+            }
+
+        }
+
+    }
+
+    public LinkedList<N> getPath(N target) {
+        LinkedList<N> path = new LinkedList<>();
+        N step = target;
+        if (paths.get(step) == null) {
+            return null;
+        }
+        path.add(step);
+        while (paths.get(step) != null) {
+            step = paths.get(step);
+            path.add(step);
+        }
+        Collections.reverse(path);
+        return path;
     }
 
 }
