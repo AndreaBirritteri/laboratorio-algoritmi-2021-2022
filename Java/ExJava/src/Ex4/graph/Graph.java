@@ -188,13 +188,15 @@ public class Graph<N, T extends Number> {
         }
     }
 
-    MinHeap<Node<N, Double>> heap;
+    MinHeap<Node<N, Number>> heap;
     Set<N> visited;
-    HashMap<N, Double> distance;
+    HashMap<N, Number> distance;
     Set<N> nodes;
     Map<N, N> paths;
+    N source;
 
-    public void dijkstra(N source) throws GraphException {
+    public void generateDijkstra(N source) throws GraphException {
+        this.source = source;
         heap = new MinHeap<>();
         visited = new HashSet<>();
         distance = new HashMap<>();
@@ -233,9 +235,9 @@ public class Graph<N, T extends Number> {
 
             if (!visited.contains(v.node)) {
                 edgeDistance = v.cost.doubleValue();
-                newDistance = distance.get(u) + edgeDistance;
+                newDistance = distance.get(u).doubleValue() + edgeDistance;
 
-                if (newDistance < distance.get(v.node)) {
+                if (newDistance < distance.get(v.node).doubleValue()) {
                     distance.replace(v.node, newDistance);
                     paths.put(v.node, u);
                 }
@@ -247,7 +249,18 @@ public class Graph<N, T extends Number> {
 
     }
 
-    public LinkedList<N> getPath(N target) {
+    public Double calcPathLengthKm(LinkedList<N> path) throws GraphException {
+        double sum = 0.0;
+        for (int i = 0; i < path.size() - 1; i++) {
+            N src = path.get(i);
+            N dst = path.get(i + 1);
+
+            sum += this.getLabel(src, dst).doubleValue();
+        }
+        return Math.floor(sum / 10) / 100;
+    }
+
+    public LinkedList<N> getPathTo(N target) {
         LinkedList<N> path = new LinkedList<>();
         N step = target;
         if (paths.get(step) == null) {

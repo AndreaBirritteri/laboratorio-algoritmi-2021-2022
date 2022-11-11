@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.LinkedList;
 
 
 public class GraphUsage {
@@ -34,32 +35,23 @@ public class GraphUsage {
         long timer = System.nanoTime();
         File file;
 
-        if (args.length < 1)
+        if (args.length < 1) {
             throw new Exception("Usage: Graph <file_name>");
-
-        if (args[0].equalsIgnoreCase("default"))
-            file = new File("../file/italian_dist_graph.csv");
-        else
+        } else {
             file = new File(args[0]);
+        }
 
         Graph<String, Double> graph = new Graph<>(false);
         loadFile(file.getAbsolutePath(), graph);
 
-        System.out.println("---------------Djikstra---------------");
-        graph.dijkstra("torino");
+        System.out.println("---------------Dijkstra---------------");
 
-        System.out.println(graph.getPath("catania"));
+        graph.generateDijkstra("torino");
 
-        Double sum = 0.0;
-        for (int i = 0; i < graph.getPath("catania").size() - 1; i++) {
-            String src = graph.getPath("catania").get(i);
-            String dst = graph.getPath("catania").get(i + 1);
+        LinkedList<String> path = graph.getPathTo("catania");
 
-
-            sum += graph.getLabel(src, dst);
-        }
-        System.out.println(sum / 1000 + " km");
-
+        System.out.println(path);
+        System.out.println(graph.calcPathLengthKm(path) + "km");
 
         timer = System.nanoTime() - timer;
         System.out.println("Execution in " + (timer / 1000000000) + "s");
