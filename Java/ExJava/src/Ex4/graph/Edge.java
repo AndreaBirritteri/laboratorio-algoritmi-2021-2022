@@ -6,7 +6,7 @@ public class Edge<N, T extends Number> {
     private final N srcNode, dstNode;
     private final T label;
 
-        public Edge(N srcNode, N dstNode, T label) {
+    public Edge(N srcNode, N dstNode, T label) {
         this.srcNode = srcNode;
         this.dstNode = dstNode;
         this.label = label;
@@ -30,9 +30,12 @@ public class Edge<N, T extends Number> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Edge)) return false;
-        Edge<?, ?> edge = (Edge<?, ?>) o;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Edge<?, ?> edge)) {
+            return false;
+        }
         return getSrcNode().equals(edge.getSrcNode()) && getDstNode().equals(edge.getDstNode()) && getLabel().equals(edge.getLabel());
     }
 

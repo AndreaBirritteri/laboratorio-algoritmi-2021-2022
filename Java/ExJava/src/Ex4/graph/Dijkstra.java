@@ -1,16 +1,9 @@
 package Ex4.graph;
 
-
 import Ex3.MinHeap;
-
 import java.util.*;
 
 public class Dijkstra {
-
-    public Dijkstra() {
-    }
-
-
     Graph<String, Double> graph;
     MinHeap<Node> heap;
     Set<String> visited;
@@ -18,13 +11,14 @@ public class Dijkstra {
     Set<String> nodes;
     Map<String, String> paths;
 
-    public void dijkstra(Graph<String, Double> graph, String source) throws GraphException {
+    public Dijkstra(Graph<String, Double> graph, String source) throws GraphException {
         this.graph = graph;
         heap = new MinHeap<>();
         visited = new HashSet<>();
         distance = new HashMap<>();
         paths = new HashMap<>();
         nodes = graph.getNodes();
+
         for (String node : nodes) {
             distance.putIfAbsent(node, Double.MAX_VALUE);
         }
@@ -33,30 +27,26 @@ public class Dijkstra {
         distance.replace(source, 0.0);
 
         while (visited.size() != nodes.size()) {
-
             if (heap.isEmpty()) {
                 return;
             }
 
             String u = heap.extract().node;
-
             if (visited.contains(u)) {
                 continue;
             }
-
             visited.add(u);
             graph_adjacentNodes(u);
         }
     }
 
-
     public void graph_adjacentNodes(String u) throws GraphException {
         double edgeDistance;
         double newDistance;
 
-        List<Edge<String, Double>> adjlist = graph.getAdjList(u);
+        List<Edge<String, Double>> adjList = graph.getAdjList(u);
 
-        for (Edge<String, Double> stringDoubleEdge : adjlist) {
+        for (Edge<String, Double> stringDoubleEdge : adjList) {
 
             Node v = new Node(stringDoubleEdge.getDstNode(), stringDoubleEdge.getLabel());
 
@@ -76,7 +66,6 @@ public class Dijkstra {
 
     }
 
-
     public LinkedList<String> getPath(String target) {
         LinkedList<String> path = new LinkedList<>();
         String step = target;
@@ -91,39 +80,4 @@ public class Dijkstra {
         Collections.reverse(path);
         return path;
     }
-
-    public Graph<String, Double> getGraph() {
-        return graph;
-    }
-
-    public void setGraph(Graph<String, Double> graph) {
-        this.graph = graph;
-    }
-
-    public MinHeap<Node> getHeap() {
-        return heap;
-    }
-
-    public void setHeap(MinHeap<Node> heap) {
-        this.heap = heap;
-    }
-
-
-    public HashMap<String, Double> getDistance() {
-        return distance;
-    }
-
-    public void setDistance(HashMap<String, Double> distance) {
-        this.distance = distance;
-    }
-
-    public Set<String> getNodes() {
-        return nodes;
-    }
-
-    public void setNodes(Set<String> nodes) {
-        this.nodes = nodes;
-    }
-
-
 }

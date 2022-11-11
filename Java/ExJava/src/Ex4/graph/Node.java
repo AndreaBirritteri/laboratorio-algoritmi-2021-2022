@@ -10,12 +10,6 @@ public class Node implements Comparable<Node> {
 
     @Override
     public int compareTo(Node o) {
-        if (this.cost < o.cost)
-            return -1;
-        if (this.cost > o.cost)
-            return 1;
-        return 0;
+        return this.cost.compareTo(o.cost);
     }
-
-
 }

@@ -5,28 +5,23 @@ import java.util.Objects;
 
 public class MinHeap<T extends Comparable<T>> {
 
-
     private ArrayList<T> heap;
 
     public MinHeap() {
         heap = new ArrayList<>();
     }
 
-
     private int leftChild(int i) {
         return 2 * i + 1;
     }
-
 
     private int rightChild(int i) {
         return 2 * (i + 1);
     }
 
-
     private int parent(int i) {
         return (i - 1) / 2;
     }
-
 
     public boolean isEmpty() {
         return heap.isEmpty();
@@ -35,7 +30,6 @@ public class MinHeap<T extends Comparable<T>> {
     public int size() {
         return heap.size();
     }
-
 
     public String toString() {
         return "the heap: " + heap;
@@ -101,7 +95,6 @@ public class MinHeap<T extends Comparable<T>> {
 
     }
 
-
     public void decreaseKey(int i, T key) {
         if (heap.get(i).compareTo(key) < 0) {
             throw new IllegalArgumentException("Key is larger than the original key");
@@ -122,10 +115,6 @@ public class MinHeap<T extends Comparable<T>> {
         heap.set(j, t);
     }
 
-    public boolean contains(T v) {
-        return heap.contains(v);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -137,6 +126,5 @@ public class MinHeap<T extends Comparable<T>> {
     public int hashCode() {
         return Objects.hash(heap);
     }
-
 
 }

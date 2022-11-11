@@ -4,23 +4,24 @@ import java.util.*;
 
 
 public class Graph<N, T extends Number> {
-    private Map<N, List<Edge<N, T>>> graph;
-    private List<Edge<N, T>> edgeList;    private final boolean direct;
+    private final Map<N, List<Edge<N, T>>> graph;
+    private final List<Edge<N, T>> edgeList;
+    private final boolean direct;
 
-        public Graph(boolean isDirect) {
+    public Graph(boolean isDirect) {
         this.graph = new HashMap<>();
         this.edgeList = new ArrayList<>();
         this.direct = isDirect;
     }
 
-        public void addNode(N node) throws GraphException {
+    public void addNode(N node) throws GraphException {
         if (node == null)
             throw new GraphException("node value cannot be null");
 
         graph.put(node, new ArrayList<>());
     }
 
-        public void addEdge(N src, N dst, T label) throws GraphException {
+    public void addEdge(N src, N dst, T label) throws GraphException {
         if (src == null || dst == null)
             throw new GraphException("source or destination cannot be null");
 
@@ -61,18 +62,18 @@ public class Graph<N, T extends Number> {
         }
     }
 
-        public boolean isDirect() {
+    public boolean isDirect() {
         return direct;
     }
 
-        public boolean hasNode(N value) throws GraphException {
+    public boolean hasNode(N value) throws GraphException {
         if (value == null)
             throw new GraphException("value parameter is null");
 
         return graph.containsKey(value);
     }
 
-        public boolean hasEdge(N src, N dst) throws GraphException {
+    public boolean hasEdge(N src, N dst) throws GraphException {
         if (src == null || dst == null)
             throw new GraphException("source or destination cannot be null");
 
@@ -88,14 +89,14 @@ public class Graph<N, T extends Number> {
         return found;
     }
 
-        public void rmvNode(N value) throws GraphException {
+    public void rmvNode(N value) throws GraphException {
         if (value == null)
             throw new GraphException("value cannot be null");
 
         graph.remove(value);
     }
 
-        public void rmvEdge(N src, N dst) throws GraphException {
+    public void rmvEdge(N src, N dst) throws GraphException {
         if (src == null || dst == null)
             throw new GraphException("source or destination cannot be null");
 
@@ -126,11 +127,11 @@ public class Graph<N, T extends Number> {
         }
     }
 
-        public int getNodesCount() {
+    public int getNodesCount() {
         return graph.size();
     }
 
-        public int getEdgesCount() {
+    public int getEdgesCount() {
         int count = edgeList.size();
 
         if (!isDirect())
@@ -139,22 +140,22 @@ public class Graph<N, T extends Number> {
         return count;
     }
 
-        public Set<N> getNodes() {
+    public Set<N> getNodes() {
         return graph.keySet();
     }
 
-        public List<Edge<N, T>> getEdgeList() {
+    public List<Edge<N, T>> getEdgeList() {
         return this.edgeList;
     }
 
-        public List<Edge<N, T>> getAdjList(N node) throws GraphException {
+    public List<Edge<N, T>> getAdjList(N node) throws GraphException {
         if (node == null)
             throw new GraphException("node cannot be null");
 
         return graph.get(node);
     }
 
-        public T getLabel(N src, N dst) throws GraphException {
+    public T getLabel(N src, N dst) throws GraphException {
         if (src == null && dst == null)
             throw new GraphException("src and dst cannot be null.");
 
@@ -173,7 +174,7 @@ public class Graph<N, T extends Number> {
         return label;
     }
 
-        public void print() {
+    public void print() {
         int c = 0;
         List<Edge<N, T>> edges = getEdgeList();
         while (c < 20) {

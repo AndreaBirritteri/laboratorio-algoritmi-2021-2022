@@ -23,7 +23,7 @@ public class GraphUsage {
 
 		try (BufferedReader fileInputReader = Files.newBufferedReader(inputFilePath, ENCODING)) {
 			System.out.println("\nReading from " + filePath);
-			String line = null;
+			String line;
 			while ((line = fileInputReader.readLine()) != null) {
 				String[] lineElements = line.split(",");
 				graph.addEdge(lineElements[0], lineElements[1], Double.parseDouble(lineElements[2]));
@@ -46,9 +46,9 @@ public class GraphUsage {
 
 		Graph<String, Double> graph = new Graph<>(false);
 		loadFile(file.getAbsolutePath(), graph);
+
 		System.out.println("---------------Djikstra---------------");
-		Dijkstra cd = new Dijkstra();
-		cd.dijkstra(graph,"torino");
+		Dijkstra cd = new Dijkstra(graph,"torino");
 
 		System.out.println(cd.getPath("catania"));
 		Double sum = 0.0;
