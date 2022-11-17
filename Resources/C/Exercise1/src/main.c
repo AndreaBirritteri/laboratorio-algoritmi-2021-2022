@@ -5,7 +5,7 @@
 #include "orderedArray.h"
 #include "sorting.h"
 
-#define MAX_LINES 20000000
+#define MAX_LINES 200
 
 
 struct record {
@@ -155,10 +155,14 @@ static void test_with_comparison_function(const char *file_name, const char *met
 
   gettimeofday(&start, NULL);
 
-  if (strcmp(method, "0") == 0)
+  if (strcmp(method, "0") == 0) {
     insertionSort(array);
-  else if (strcmp(method, "1") == 0)
+  }
+  else if (strcmp(method, "1") == 0) {
+    printf("USING QUICK SORT");
+    fflush(NULL);
     quickSort(array);
+  }
   else {
     fprintf(stderr, "%s not admitted. You must use 0 for Binary Insertion Sort, or 1 for Quick Sort", method);
     exit(EXIT_FAILURE);

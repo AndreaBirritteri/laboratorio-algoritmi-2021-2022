@@ -5,13 +5,6 @@
 #include "sorting.h"
 #include "orderedArray.h"
 
-//It searches the index where the element should be inserted
-//It accepts as input a pointer to an array, the range between
-// it has to find the index defined by low and high and
-// a pointer to the element
-//It returns the index
-//The input parameters cannot be NULL or out of bounds of the
-//array
 static size_t binarySearch(OrderedArray *ordered_array, size_t low, size_t high, void *item) {
   size_t mid;
 
@@ -29,13 +22,18 @@ static size_t binarySearch(OrderedArray *ordered_array, size_t low, size_t high,
   return mid;
 }
 
-static void startInsertionSort(OrderedArray *ordered_array, size_t high) {
+static void insertionSortt(OrderedArray *ordered_array, size_t low, size_t high) {
   size_t index = 0, i = 0;
   void *tmp;
 
-  for (i = 1; i <= high; i++) {
+  for (i = low + 1; i <= high; i++) {
+    if (i % 1000000 == 0) {
+      printf("%zu\n", i);
+      fflush(NULL);
+    }
+
     tmp = (ordered_array->array)[i];
-    index = binarySearch(ordered_array, 0, i, tmp);
+    index = binarySearch(ordered_array, low, i, tmp);
 
     if (index > high) {
       fprintf(stderr, "insertion_sort: index out of bounds of the array");
@@ -43,6 +41,7 @@ static void startInsertionSort(OrderedArray *ordered_array, size_t high) {
     }
 
     if (index < i) {
+      //index = 5, i = 500
       memmove((ordered_array->array) + index + 1, (ordered_array->array) + index, sizeof(void *) * (i - index));
       (ordered_array->array)[index] = tmp;
     }
@@ -50,14 +49,18 @@ static void startInsertionSort(OrderedArray *ordered_array, size_t high) {
 }
 
 void insertionSort(OrderedArray *ordered_array) {
-  startInsertionSort(ordered_array, ordered_array->el_num - 1);
+  ssize_t low = 0;
+  ssize_t high = (ordered_array->el_num - 1);
+  insertionSortt(ordered_array, low, high);
 }
 
+//SOTTO QUESTA RIGA VA TUTTO NON TOCCARE PLIS
 
 static void quickSortRecursive(OrderedArray *ordered_array, ssize_t left, ssize_t right) {
-  //printf("%zd - %zd\n", left, right);
+  if(left > right)
+    return;
 
-  ssize_t midPosition = (left + right) / 2;
+  ssize_t midPosition = ((left + right) / 2);
 
   void *pivot = ordered_array_get(ordered_array, midPosition);
   ssize_t i = left;
@@ -65,12 +68,12 @@ static void quickSortRecursive(OrderedArray *ordered_array, ssize_t left, ssize_
 
   while (i <= j) {
 
-    if ((*(ordered_array->precedes))(ordered_array_get(ordered_array, i), pivot) > 0) {
+    if ((*(ordered_array->precedes))(ordered_array_get(ordered_array, i), pivot) < 0) {
       i = i + 1;
     } else {
-      if (((*(ordered_array->precedes))(ordered_array_get(ordered_array, j), pivot)) < 0) {
+      if (((*(ordered_array->precedes))(ordered_array_get(ordered_array, j), pivot)) > 0) {
         j = j - 1;
-      } else {
+      } else { // if == 0
         swap_array_record(ordered_array, i, j);
         i = i + 1;
         j = j - 1;
@@ -78,12 +81,14 @@ static void quickSortRecursive(OrderedArray *ordered_array, ssize_t left, ssize_
     }
   }
 
-  if (left < j)
+  if (left < j) {
     quickSortRecursive(ordered_array, left, j);
-  if (i < right)
+  }
+  if (i < right) {
     quickSortRecursive(ordered_array, i, right);
+  }
 }
 
 void quickSort(OrderedArray *ordered_array) {
-  quickSortRecursive(ordered_array, 0, (ssize_t)(ordered_array->el_num) - 1);
+  quickSortRecursive(ordered_array, 0, (ssize_t) (ordered_array->el_num) - 1);
 }
