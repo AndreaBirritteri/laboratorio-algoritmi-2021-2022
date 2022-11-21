@@ -9,8 +9,8 @@ typedef struct _OrderedArray OrderedArray;
 struct _OrderedArray
 {
     void **array;
-    size_t el_num; //numero di elementi
-    size_t array_capacity; //capacita dell'array
+    long el_num; //numero di elementi
+    long array_capacity; //capacita dell'array
     int (*precedes)(void *, void *);
 };
 

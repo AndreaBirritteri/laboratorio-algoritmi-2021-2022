@@ -13,25 +13,20 @@ static size_t binarySearch(OrderedArray *ordered_array, size_t low, size_t high,
 
   mid = low + ((high - low) / 2);
 
-  if ((*(ordered_array->precedes))((ordered_array->array)[mid], item))
+  if ((*(ordered_array->precedes))((ordered_array->array)[mid], item) > 0)
     return binarySearch(ordered_array, mid + 1, high, item);
 
-  if ((*(ordered_array->precedes))(item, (ordered_array->array)[mid]))
+  if ((*(ordered_array->precedes))(item, (ordered_array->array)[mid]) > 0)
     return binarySearch(ordered_array, low, mid, item);
 
   return mid;
 }
 
-static void insertionSortt(OrderedArray *ordered_array, size_t low, size_t high) {
+static void insertionSortRecursive(OrderedArray *ordered_array, size_t low, size_t high) {
   size_t index = 0, i = 0;
   void *tmp;
 
   for (i = low + 1; i <= high; i++) {
-    if (i % 1000000 == 0) {
-      printf("%zu\n", i);
-      fflush(NULL);
-    }
-
     tmp = (ordered_array->array)[i];
     index = binarySearch(ordered_array, low, i, tmp);
 
@@ -41,7 +36,6 @@ static void insertionSortt(OrderedArray *ordered_array, size_t low, size_t high)
     }
 
     if (index < i) {
-      //index = 5, i = 500
       memmove((ordered_array->array) + index + 1, (ordered_array->array) + index, sizeof(void *) * (i - index));
       (ordered_array->array)[index] = tmp;
     }
@@ -50,45 +44,56 @@ static void insertionSortt(OrderedArray *ordered_array, size_t low, size_t high)
 
 void insertionSort(OrderedArray *ordered_array) {
   ssize_t low = 0;
-  ssize_t high = (ordered_array->el_num - 1);
-  insertionSortt(ordered_array, low, high);
+  ssize_t high = (ssize_t) (ordered_array->el_num - 1);
+  insertionSortRecursive(ordered_array, low, high);
 }
 
-//SOTTO QUESTA RIGA VA TUTTO NON TOCCARE PLIS
+long partition(OrderedArray *ordered_array, long left, long right) {
 
-static void quickSortRecursive(OrderedArray *ordered_array, ssize_t left, ssize_t right) {
-  if(left > right)
-    return;
+  long pivotIndex = ((left + right) / 2);
 
-  ssize_t midPosition = ((left + right) / 2);
-
-  void *pivot = ordered_array_get(ordered_array, midPosition);
-  ssize_t i = left;
-  ssize_t j = right;
+  long i = left;
+  long j = right;
 
   while (i <= j) {
+    while (i <= right && (*ordered_array->precedes)(
+        ordered_array_get(ordered_array, i),
+        ordered_array_get(ordered_array, pivotIndex)) > 0) {
+      i++;
+    }
 
-    if ((*(ordered_array->precedes))(ordered_array_get(ordered_array, i), pivot) < 0) {
-      i = i + 1;
-    } else {
-      if (((*(ordered_array->precedes))(ordered_array_get(ordered_array, j), pivot)) > 0) {
-        j = j - 1;
-      } else { // if == 0
-        swap_array_record(ordered_array, i, j);
-        i = i + 1;
-        j = j - 1;
-      }
+    while (j > left && (*ordered_array->precedes)(
+        ordered_array_get(ordered_array, j),
+        ordered_array_get(ordered_array, pivotIndex)) < 0) {
+      j--;
+    }
+
+    if (i <= j) {
+      swap_array_record(ordered_array, i, j);
+      i++;
+      j--;
     }
   }
 
-  if (left < j) {
-    quickSortRecursive(ordered_array, left, j);
-  }
-  if (i < right) {
-    quickSortRecursive(ordered_array, i, right);
-  }
+  return i;
 }
 
-void quickSort(OrderedArray *ordered_array) {
-  quickSortRecursive(ordered_array, 0, (ssize_t) (ordered_array->el_num) - 1);
+void quickSortRecursion(OrderedArray *ordered_array, long left, long right) {
+  long pi = partition(ordered_array, left, right);
+
+  if (left < pi - 1)
+    quickSortRecursion(ordered_array, left, pi - 1);
+  if (pi < right)
+    quickSortRecursion(ordered_array, pi, right);
 }
+
+void quickSort(OrderedArray *orderedArray) {
+  quickSortRecursion(orderedArray, 0, orderedArray->el_num - 1);
+}
+
+
+
+
+
+
+

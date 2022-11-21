@@ -6,6 +6,29 @@
 //Initial capacity for the array
 #define INITIAL_CAPACITY 2
 
+void swap_array_record(OrderedArray *ordered_array, size_t i, size_t j) {
+  if(i + 1 == 0){
+    fprintf(stderr, "swap_array_record: Index i -1 is out of the array bounds");
+    exit(EXIT_FAILURE);
+  }
+  if(j + 1 == 0){
+    fprintf(stderr, "swap_array_record: Index j -1 is out of the array bounds");
+    exit(EXIT_FAILURE);
+  }
+  if (i >= ordered_array->el_num) {
+    fprintf(stderr, "swap_array_record: Index i %lu is out of the array bounds", i);
+    exit(EXIT_FAILURE);
+  }
+  if (j >= ordered_array->el_num) {
+    fprintf(stderr, "swap_array_record: Index j %lu is out of the array bounds", j);
+    exit(EXIT_FAILURE);
+  }
+
+  void* temp = ordered_array->array[i];
+  ordered_array->array[i] = ordered_array->array[j];
+  ordered_array->array[j] = temp;
+}
+
 OrderedArray *ordered_array_create(int (*precedes)(void *, void *)) {
   if (precedes == NULL) {
     fprintf(stderr, "ordered_array_create: precedes parameter cannot be NULL");
@@ -84,23 +107,11 @@ void *ordered_array_get(OrderedArray *ordered_array, size_t i) {
 }
 
 struct record { //TODO check were write this
-    int int_id;
-    char *string_field1;
-    int int_field2;
-    float float_field3;
+  int int_id;
+  char *string_field1;
+  int int_field2;
+  float float_field3;
 };
-
-void swap_array_record(OrderedArray *ordered_array, size_t i, size_t j) {
-  size_t size = sizeof (struct record);
-  struct record *v1 = ordered_array_get(ordered_array, i);
-  struct record *v2 = ordered_array_get(ordered_array, j);
-  struct record *temp = malloc(size);
-
-  memmove(temp, v1, size);
-  memmove(v1, v2, size);
-  memmove(v2, temp, size);
-  free(temp);
-}
 
 void print_array(OrderedArray *ordered_array) {
   int c = 0;

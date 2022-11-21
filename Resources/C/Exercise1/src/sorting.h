@@ -17,4 +17,5 @@ void insertionSort(OrderedArray *ordered_array);
 
 void quickSort(OrderedArray *orderedArray);
 
+
 #endif //LABORATORIO_ALGORITMI_2021_2022_SORTING_H

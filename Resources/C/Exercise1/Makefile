@@ -1,5 +1,4 @@
 all:
-	gcc src/main.c src/orderedArray.c src/sorting.c -o bin/main.o
-
+	gcc -g -o bin/test.o src/main.c src/Unity/unity.c src/orderedArray.c src/sorting.c
 test:
-	gcc src/testOrderedArray.c src/Unity/unity.c src/orderedArray.c src/sorting.c -o bin/test.o
+	gcc -g -o bin/test.o src/testOrderedArray.c src/Unity/unity.c src/orderedArray.c src/sorting.c

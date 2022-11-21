@@ -5,14 +5,14 @@
 #include "orderedArray.h"
 #include "sorting.h"
 
-#define MAX_LINES 200
+#define MAX_LINES 20
 
 
 struct record {
-    int int_id;
-    char *string_field1;
-    int int_field2;
-    float float_field3;
+  int int_id;
+  char *string_field1;
+  int int_field2;
+  float float_field3;
 };
 
 //It takes as input two pointers to struct record.
@@ -31,8 +31,11 @@ static int precedes_record_string_field(void *r1_p, void *r2_p) {
   struct record *rec2_p = (struct record *) r2_p;
   if (strcmp(rec1_p->string_field1, rec2_p->string_field1) < 0) {
     return (1);
+  } else if (strcmp(rec1_p->string_field1, rec2_p->string_field1) > 0) {
+    return (-1);
+  } else {
+    return (0);
   }
-  return (0);
 }
 
 //It takes as input two pointers to struct record.
@@ -51,8 +54,11 @@ static int precedes_record_int_field(void *r1_p, void *r2_p) {
   struct record *rec2_p = (struct record *) r2_p;
   if (rec1_p->int_field2 < rec2_p->int_field2) {
     return (1);
+  } else if (rec1_p->int_field2 > rec2_p->int_field2) {
+    return (-1);
+  } else {
+    return (0);
   }
-  return (0);
 }
 
 //It takes as input two pointers to struct record.
@@ -71,8 +77,11 @@ static int precedes_record_float_field(void *r1_p, void *r2_p) {
   struct record *rec2_p = (struct record *) r2_p;
   if (rec1_p->float_field3 < rec2_p->float_field3) {
     return (1);
+  }else if(rec1_p->float_field3 > rec2_p->float_field3){
+    return (-1);
+  }else {
+    return (0);
   }
-  return (0);
 }
 
 static void free_array(OrderedArray *array) {
@@ -157,13 +166,9 @@ static void test_with_comparison_function(const char *file_name, const char *met
 
   if (strcmp(method, "0") == 0) {
     insertionSort(array);
-  }
-  else if (strcmp(method, "1") == 0) {
-    printf("USING QUICK SORT");
-    fflush(NULL);
+  } else if (strcmp(method, "1") == 0) {
     quickSort(array);
-  }
-  else {
+  } else {
     fprintf(stderr, "%s not admitted. You must use 0 for Binary Insertion Sort, or 1 for Quick Sort", method);
     exit(EXIT_FAILURE);
   }
@@ -172,7 +177,6 @@ static void test_with_comparison_function(const char *file_name, const char *met
   time_taken = (double) end.tv_sec + (double) end.tv_usec / 1e6 - (double) start.tv_sec - (double) start.tv_usec / 1e6;
 
   printf("\nArray ordered in: %fs\n\n", time_taken);
-  //print_array(array);
   free_array(array);
 }
 
