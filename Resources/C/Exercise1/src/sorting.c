@@ -56,15 +56,15 @@ long partition(OrderedArray *ordered_array, long left, long right) {
   long j = right;
 
   while (i <= j) {
-    while (i <= right && (*ordered_array->precedes)(
+    while (i < right && ((*ordered_array->precedes)(
         ordered_array_get(ordered_array, i),
-        ordered_array_get(ordered_array, pivotIndex)) > 0) {
+        ordered_array_get(ordered_array, pivotIndex))) > 0) {
       i++;
     }
 
-    while (j > left && (*ordered_array->precedes)(
+    while (j >= left && ((*ordered_array->precedes)(
         ordered_array_get(ordered_array, j),
-        ordered_array_get(ordered_array, pivotIndex)) < 0) {
+        ordered_array_get(ordered_array, pivotIndex))) < 0) {
       j--;
     }
 
