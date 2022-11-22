@@ -5,7 +5,7 @@
 #include "orderedArray.h"
 #include "sorting.h"
 
-#define MAX_LINES 20
+#define MAX_LINES 3
 
 
 struct record {
@@ -177,6 +177,7 @@ static void test_with_comparison_function(const char *file_name, const char *met
   time_taken = (double) end.tv_sec + (double) end.tv_usec / 1e6 - (double) start.tv_sec - (double) start.tv_usec / 1e6;
 
   printf("\nArray ordered in: %fs\n\n", time_taken);
+  print_array(array);
   free_array(array);
 }
 
