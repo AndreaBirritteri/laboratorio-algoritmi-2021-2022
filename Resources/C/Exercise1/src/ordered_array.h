@@ -1,5 +1,5 @@
-#ifndef LABORATORIO_ALGORITMI_2021_2022_ORDEREDARRAY_H
-#define LABORATORIO_ALGORITMI_2021_2022_ORDEREDARRAY_H
+#ifndef LABORATORIO_ALGORITMI_2021_2022_ORDERED_ARRAY_H
+#define LABORATORIO_ALGORITMI_2021_2022_ORDERED_ARRAY_H
 
 //An array of any number of elements of any kind, ordered in non-descending order
 //according to a specific precedence relation.
@@ -56,4 +56,4 @@ void print_array(OrderedArray *ordered_array);
 
 void swap_array_record(OrderedArray *ordered_array, size_t i, size_t j);
 
-#endif //LABORATORIO_ALGORITMI_2021_2022_ORDEREDARRAY_H
+#endif //LABORATORIO_ALGORITMI_2021_2022_ORDERED_ARRAY_H

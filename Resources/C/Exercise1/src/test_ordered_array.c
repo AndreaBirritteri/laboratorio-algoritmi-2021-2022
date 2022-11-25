@@ -1,7 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "Unity/unity.h"
-#include "orderedArray.h"
+#include "ordered_array.h"
 #include "sorting.h"
 /*
  * Test suite for ordered array data structure and algorithms
@@ -183,9 +183,9 @@ static void test_insertion_sort_three_el(void) {
   ordered_array_add(ordered_array_float, &f1);
   ordered_array_add(ordered_array_float, &f2);
 
-  insertionSort(ordered_array_int);
-  insertionSort(ordered_array_string);
-  insertionSort(ordered_array_float);
+  insertion_sort(ordered_array_int);
+  insertion_sort(ordered_array_string);
+  insertion_sort(ordered_array_float);
 
   int **act_int = malloc(3 * sizeof(int *));
   char **act_str = malloc(3 * sizeof(char *));
@@ -220,9 +220,9 @@ static void test_quick_sort_three_el(void) {
   ordered_array_add(ordered_array_float, &f1);
   ordered_array_add(ordered_array_float, &f2);
 
-  quickSort(ordered_array_int);
-  quickSort(ordered_array_string);
-  quickSort(ordered_array_float);
+  quick_sort(ordered_array_int);
+  quick_sort(ordered_array_string);
+  quick_sort(ordered_array_float);
 
   int **act_int = malloc(3 * sizeof(int *));
   char **act_str = malloc(3 * sizeof(char *));
@@ -243,8 +243,6 @@ static void test_quick_sort_three_el(void) {
 
 
 int main(void) {
-
-  //test session
   UNITY_BEGIN();
 
   RUN_TEST(test_are_empty_zero_el);
