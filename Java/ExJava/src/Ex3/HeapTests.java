@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+
+
 public class HeapTests {
 
 	private float f1, f2, f3;
@@ -76,7 +78,6 @@ public class HeapTests {
 	}
 
 	@Test
-	// It directly accesses the Map instance variable ufsMap.nodes
 	public void testAdd_oneEl()  {
 		HeapFloat.insert(f1);
 		HeapInt.insert(i1);
