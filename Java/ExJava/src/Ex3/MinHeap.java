@@ -67,19 +67,6 @@ public class MinHeap<T extends Comparable<T>> {
         }
     }
 
-    public void buildHeap(ArrayList<T> in) {
-        heap = in;
-        for (int i = (heap.size() - 2) / 2; i >= 0; i--)
-            heapify(i);
-    }
-
-    public ArrayList<T> sort() {
-        ArrayList<T> res = new ArrayList<>();
-        while (!isEmpty()) {
-            res.add(extract());
-        }
-        return res;
-    }
 
     public T extract() {
         if (heap.isEmpty())
