@@ -32,7 +32,6 @@ void print_typos(SkipList *dictionary, char **word_list, size_t word_list_length
   }
 }
 
-// TODO: refactor this
 char **load_word_list(const char *path, size_t *word_list_size_argument) {
   FILE *fp;
   fp = fopen(path, "r");
@@ -41,33 +40,28 @@ char **load_word_list(const char *path, size_t *word_list_size_argument) {
     exit(EXIT_FAILURE);
   }
 
-  unsigned int space_allocated_for_words = 10;
-  char **word_list = (char **) malloc(sizeof(char *) * space_allocated_for_words);
-
+  char **word_list = (char **) malloc(sizeof(char *));
+  char *line = NULL;
   size_t word_list_size_local = 0;
   size_t length = 0;
-  char *line = NULL;
   while ((getline(&line, &length, fp)) != -1) {
     char *current_word = (char *) malloc(sizeof(char) * MAX_WORD_LENGTH);
-    unsigned int letter_index = 0;
+    size_t letter_index = 0;
     for (int i = 0; i < length; i++) {
       if (_is_punctuation(line[i])) {
         if (letter_index > 0) {
-          if (word_list_size_local == space_allocated_for_words) {
-            space_allocated_for_words += 10;
-            word_list = (char **) realloc(word_list, sizeof(char *) * space_allocated_for_words);
-          }
+          word_list_size_local++;
+          word_list = (char **) realloc(word_list, sizeof(char *) * (word_list_size_local));
 
           char *word_to_insert = (char *) malloc(sizeof(char) * letter_index);
           strcpy(word_to_insert, current_word);
           for (int n = 0; word_to_insert[n]; n++) {
             word_to_insert[n] = (char) tolower(word_to_insert[n]);
           }
-          word_list[word_list_size_local] = word_to_insert;
+          word_list[word_list_size_local - 1] = word_to_insert;
 
           current_word = (char *) malloc(sizeof(char) * MAX_WORD_LENGTH);
           letter_index = 0;
-          word_list_size_local++;
         }
       } else { //is not punctuation
         current_word[letter_index] = line[i];
@@ -75,6 +69,7 @@ char **load_word_list(const char *path, size_t *word_list_size_argument) {
       }
     }
   }
+
   *word_list_size_argument = word_list_size_local;
   return word_list;
 }

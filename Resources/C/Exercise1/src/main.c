@@ -131,7 +131,7 @@ static void load_array(const char *file_name, OrderedArray *array) {
     float float_field = (float) atof(float_field_in_read_line_p);
     struct record *record_p = malloc(sizeof(struct record));
     if (record_p == NULL) {
-      fprintf(stderr, "main: unable to allocate memory for the read record");
+      fprintf(stderr, "main: unable to allocate memory for the read record\n");
       exit(EXIT_FAILURE);
     }
 
@@ -168,7 +168,7 @@ static void test_with_comparison_function(const char *file_name, const char *met
   } else if (strcmp(method, "1") == 0) {
     quick_sort(array);
   } else {
-    fprintf(stderr, "%s not admitted. You must use 0 for Binary Insertion Sort, or 1 for Quick Sort", method);
+    fprintf(stderr, "%s not admitted. You must use 0 for Binary Insertion Sort, or 1 for Quick Sort\n", method);
     exit(EXIT_FAILURE);
   }
 
@@ -193,7 +193,7 @@ int main(int argc, char const *argv[]) {
     exit(EXIT_FAILURE);
   }
   if (strcmp(argv[2], "0") != 0 && strcmp(argv[2], "1") != 0) {
-    fprintf(stderr, "\"%s\" not admitted. You must use 0 for Binary Insertion Sort, or 1 for Quick Sort", argv[2]);
+    fprintf(stderr, "\"%s\" not admitted. You must use 0 for Binary Insertion Sort, or 1 for Quick Sort\n", argv[2]);
     exit(EXIT_FAILURE);
   }
 

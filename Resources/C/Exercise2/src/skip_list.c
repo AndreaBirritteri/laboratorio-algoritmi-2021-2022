@@ -32,12 +32,6 @@ Node *_create_head_node() {
 
   return head_node;
 }
-//TODO
-void _extend_head_node_next(Node *head_node, unsigned int size) {
-  Node **reallocated_array = (Node **) realloc(head_node->next, sizeof(Node *) * size);
-
-  head_node->next = reallocated_array;
-}
 
 SkipList *create_skip_list(skip_list_comparator comparator) {
   SkipList *skip_list = (SkipList *) malloc(sizeof(SkipList));
@@ -69,7 +63,7 @@ void insert_skip_list(SkipList *list, void *item) {
   Node *new_node = _create_node(item, _random_level());
 
   if (new_node->size > list->max_level) {
-    _extend_head_node_next(list->head, new_node->size + 1);
+    list->head->next = (Node **) realloc(list->head->next, sizeof(Node *) * (new_node->size + 1));
     list->max_level = new_node->size;
   }
 
@@ -86,7 +80,7 @@ void insert_skip_list(SkipList *list, void *item) {
     }
   }
 }
-//TODO
+
 void destroy_skip_list(SkipList *list) {
   Node *next_node;
   Node *current_node = list->head;

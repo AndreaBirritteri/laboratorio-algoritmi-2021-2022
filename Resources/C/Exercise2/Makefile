@@ -1,7 +1,7 @@
 default: main
 
 clean: 
-	rm -f bin/*
+	rm -f -r bin/*
 
 unity:
 	cc -c ../Unity/unity.c -o bin/unity.o
@@ -22,4 +22,4 @@ main: skip_list utils
 	cc -o bin/exercise_2 bin/skip_list.o bin/utils.o bin/main.o
 
 exec: clean main
-	./bin/exercise_2 resources/dictionary.txt resources/correctme.txt
+	./bin/exercise_2 files/dictionary.txt files/correctme.txt
