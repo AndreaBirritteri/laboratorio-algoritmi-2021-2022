@@ -244,14 +244,12 @@ public class Graph<N, T extends Number> {
 
                 heap.insert(new Node<>(v.node, distance.get(v.node)));
             }
-
         }
-
     }
 
     public Double calcPathLengthKm(LinkedList<N> path) throws GraphException {
         double sum = 0.0;
-        for (int i = 0; i < path.size() - 1; i++) {
+        for (int i = 0; (path != null) && (i < path.size() - 1) ; i++){
             N src = path.get(i);
             N dst = path.get(i + 1);
 
@@ -260,11 +258,15 @@ public class Graph<N, T extends Number> {
         return Math.floor(sum / 10) / 100;
     }
 
-    public LinkedList<N> getPathTo(N target) {
+    public LinkedList<N> getPathTo(N target) throws GraphException {
         LinkedList<N> path = new LinkedList<>();
         N step = target;
+        if(source.equals(target)){
+            path.add(target);
+            return path;
+        }
         if (paths.get(step) == null) {
-            return null;
+            throw new GraphException("Impossible to find a path between \"" + source + "\" and \"" + target + "\"");
         }
         path.add(step);
         while (paths.get(step) != null) {

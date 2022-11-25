@@ -48,7 +48,7 @@ public class GraphUsage {
 
         graph.generateDijkstra("torino");
 
-        LinkedList<String> path = graph.getPathTo("catania");
+        LinkedList<String> path = graph.getPathTo("cumiana");
 
         System.out.println(path);
         System.out.println(graph.calcPathLengthKm(path) + "km");
