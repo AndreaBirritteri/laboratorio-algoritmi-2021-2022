@@ -1,6 +1,7 @@
 package Ex3;
 
 
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -82,7 +83,9 @@ public class MinHeap<T extends Comparable<T>> {
      *
      * @param v: generic value
      */
-    public void insert(T v) {
+    public void insert(T v) throws MinHeapException {
+        if (v == null)
+            throw new MinHeapException("element cannot be null");
         heap.add(v);
         int i = heap.size() - 1;
         while (i > 0 && v.compareTo(heap.get(parent(i))) < 0) {
@@ -146,9 +149,9 @@ public class MinHeap<T extends Comparable<T>> {
      * @param i: index of the element
      * @param key: value to decrease
      */
-    public void decreaseKey(int i, T key) {
+    public void decreaseKey(int i, T key) throws MinHeapException {
         if (heap.get(i).compareTo(key) < 0) {
-            throw new IllegalArgumentException("Key is larger than the original key");
+            throw new MinHeapException("Key is larger than the original key");
         }
 
         heap.set(i, key);

@@ -1,6 +1,7 @@
 package Ex4.graph;
 
 import Ex3.MinHeap;
+import Ex3.MinHeapException;
 
 import java.util.*;
 
@@ -321,7 +322,7 @@ public class Graph<N, T extends Number> {
      * @param source node where to start Dijkstra
      * @throws GraphException if edge is null
      */
-    public void generateDijkstra(N source) throws GraphException {
+    public void generateDijkstra(N source) throws GraphException, MinHeapException {
         this.source = source;
         heap = new MinHeap<>();
         visited = new HashSet<>();
@@ -350,7 +351,7 @@ public class Graph<N, T extends Number> {
         }
     }
 
-    public void graph_adjacentNodes(N u) throws GraphException {
+    public void graph_adjacentNodes(N u) throws GraphException, MinHeapException {
         double edgeDistance;
         double newDistance;
 

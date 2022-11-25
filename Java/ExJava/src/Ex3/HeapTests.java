@@ -40,7 +40,7 @@ public class HeapTests {
 	}
 
 	@Test
-	public void testIsEmpty_oneEl() {
+	public void testIsEmpty_oneEl() throws MinHeapException {
 		HeapInt.insert(i1);
 		HeapFloat.insert(f1);
 		HeapStr.insert(s1);
@@ -55,7 +55,7 @@ public class HeapTests {
 	}
 
 	@Test
-	public void testSize_oneEl()  {
+	public void testSize_oneEl() throws MinHeapException {
 		HeapFloat.insert(f2);
 		HeapInt.insert(i2);
 		HeapStr.insert(s2);
@@ -65,7 +65,7 @@ public class HeapTests {
 	}
 
 	@Test
-	public void testSize_twoEl()  {
+	public void testSize_twoEl() throws MinHeapException {
 		HeapInt.insert(i2);
 		HeapInt.insert(i3);
 		HeapFloat.insert(f2);
@@ -78,7 +78,7 @@ public class HeapTests {
 	}
 
 	@Test
-	public void testAdd_oneEl()  {
+	public void testAdd_oneEl() throws MinHeapException {
 		HeapFloat.insert(f1);
 		HeapInt.insert(i1);
 		HeapStr.insert(s1);
@@ -88,7 +88,7 @@ public class HeapTests {
 	}
 
 	@Test
-	public void testExtract_oneEl()  {
+	public void testExtract_oneEl() throws MinHeapException {
 		HeapFloat.insert(f1);
 		HeapFloat.insert(f2);
 		HeapFloat.insert(f3);
