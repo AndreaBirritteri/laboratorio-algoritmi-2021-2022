@@ -3,6 +3,9 @@ package Ex4.graph;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author birritteri, rondinella
+ */
 class GraphTest {
 	private Graph<Integer, Float> directGraph, indirectGraph;
 

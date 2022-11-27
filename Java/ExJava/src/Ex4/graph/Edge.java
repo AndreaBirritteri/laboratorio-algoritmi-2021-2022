@@ -2,10 +2,30 @@ package Ex4.graph;
 
 import java.util.Objects;
 
+/**
+ * It represents an edge of a Graph. It links two nodes
+ * to each other, and it is defined by a label. Values
+ * of the nodes are generic (N) and the label is a
+ * generic number (int, double...)
+ *
+ * @param <N>
+ * @param <T>
+ * @author birritteri, rondinella
+ */
 public class Edge<N, T extends Number> {
     private final N srcNode, dstNode;
     private final T label;
 
+    /**
+     * It is the constructor of an Edge. It has
+     * three parameters, source node, destination node
+     * and the label of the Edge.
+     * and the label of the Edge.
+     *
+     * @param srcNode source Node
+     * @param dstNode destination Node
+     * @param label generic label
+     */
     public Edge(N srcNode, N dstNode, T label) {
         this.srcNode = srcNode;
         this.dstNode = dstNode;

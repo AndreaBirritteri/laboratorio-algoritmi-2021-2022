@@ -1,32 +1,74 @@
 package Ex3;
 
+
+
 import java.util.ArrayList;
 import java.util.Objects;
 
+
+/**
+ * It contains Min Heap, using generic type t
+ *
+ * @param <T>: type of the MinHeap elements
+ * @author birritteri, valenzisi
+ */
+
 public class MinHeap<T extends Comparable<T>> {
 
-    private ArrayList<T> heap;
+    private final ArrayList<T> heap;
 
+
+    /**
+     * It is the constructor of the Heap
+     * It creates an empty ArrayList.
+     */
     public MinHeap() {
         heap = new ArrayList<>();
     }
 
+
+    /**
+     * It returns the left child of the passed index.
+     *
+     * @return: return the value of the left child
+     */
     private int leftChild(int i) {
         return 2 * i + 1;
     }
 
+    /**
+     * It returns the right child of the passed index.
+     *
+     * @return: return the value of the right child
+     */
     private int rightChild(int i) {
         return 2 * (i + 1);
     }
 
+
+    /**
+     * It returns the parent of the passed index.
+     *
+     * @return: return the value of the parent
+     */
     private int parent(int i) {
         return (i - 1) / 2;
     }
 
+    /**
+     * It returns a boolean if the Heap is Empty or Not.
+     *
+     * @return: true iff Heap is empty, else false.
+     */
     public boolean isEmpty() {
         return heap.isEmpty();
     }
 
+    /**
+     * It returns the Heap size.
+     *
+     * @return: the integer number of Element in the Heap.
+     */
     public int size() {
         return heap.size();
     }
@@ -35,7 +77,15 @@ public class MinHeap<T extends Comparable<T>> {
         return "the heap: " + heap;
     }
 
-    public void insert(T v) {
+
+    /**
+     * It adds a new element into the Heap. It accepts as input a generic value.
+     *
+     * @param v: generic value
+     */
+    public void insert(T v) throws MinHeapException {
+        if (v == null)
+            throw new MinHeapException("element cannot be null");
         heap.add(v);
         int i = heap.size() - 1;
         while (i > 0 && v.compareTo(heap.get(parent(i))) < 0) {
@@ -45,6 +95,11 @@ public class MinHeap<T extends Comparable<T>> {
         }
     }
 
+    /**
+     * It does the heapify with index passed
+     *
+     * @param i: index
+     */
     private void heapify(int i) {
         int size = heap.size();
         if (size > 0) {
@@ -67,20 +122,12 @@ public class MinHeap<T extends Comparable<T>> {
         }
     }
 
-    public void buildHeap(ArrayList<T> in) {
-        heap = in;
-        for (int i = (heap.size() - 2) / 2; i >= 0; i--)
-            heapify(i);
-    }
 
-    public ArrayList<T> sort() {
-        ArrayList<T> res = new ArrayList<>();
-        while (!isEmpty()) {
-            res.add(extract());
-        }
-        return res;
-    }
-
+    /**
+     * It extracts the min element
+     *
+     * @return: the min generic value.
+     */
     public T extract() {
         if (heap.isEmpty())
             return null;
@@ -95,9 +142,16 @@ public class MinHeap<T extends Comparable<T>> {
 
     }
 
-    public void decreaseKey(int i, T key) {
+
+    /**
+     * It does the Decrease Key method
+     *
+     * @param i: index of the element
+     * @param key: value to decrease
+     */
+    public void decreaseKey(int i, T key) throws MinHeapException {
         if (heap.get(i).compareTo(key) < 0) {
-            throw new IllegalArgumentException("Key is larger than the original key");
+            throw new MinHeapException("Key is larger than the original key");
         }
 
         heap.set(i, key);
