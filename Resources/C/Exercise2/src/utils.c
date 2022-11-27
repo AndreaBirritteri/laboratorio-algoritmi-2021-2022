@@ -32,7 +32,7 @@ void print_typos(SkipList *dictionary, char **word_list, size_t word_list_length
   }
 }
 
-char **load_word_list(const char *path, size_t *word_list_size_argument) {
+char **load_text(const char *path, size_t *word_list_size_argument) {
   FILE *fp;
   fp = fopen(path, "r");
   if (fp == NULL) {
@@ -84,7 +84,7 @@ SkipList *load_dictionary(const char *path) {
   dictionary = create_skip_list((skip_list_comparator) _string_comparator);
   fp = fopen(path, "r");
   if (fp == NULL) {
-    fprintf(stderr, "Impossible to open dictionary file");
+    fprintf(stderr, "Impossible to open items file");
     exit(EXIT_FAILURE);
   }
   while ((getline(&line, &length, fp)) != -1) {

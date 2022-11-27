@@ -9,13 +9,13 @@ unity:
 utils:
 	cc -c src/utils.c -o bin/utils.o
 
-test: skip_list unity
-	cc -c src/test.c -o bin/test.o
-	cc -o bin/test bin/skip_list.o bin/unity.o bin/test.o
-	./build/test
-
 skip_list:
 	cc -c src/skip_list.c -o bin/skip_list.o
+
+test: skip_list utils unity
+	cc -c src/test.c -o bin/test.o
+	cc -o bin/test bin/utils.o bin/skip_list.o bin/unity.o bin/test.o
+	./bin/test
 
 main: skip_list utils
 	cc -c src/main.c -o bin/main.o

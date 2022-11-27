@@ -106,7 +106,7 @@ All'indirizzo
 ```
 https://datacloud.di.unito.it/index.php/s/taii8aA8rNnXgCN
 ```
-potete trovare un dizionario (`dictionary.txt`) e un file da correggere (`correctme.txt`).
+potete trovare un dizionario (`items.txt`) e un file da correggere (`correctme.txt`).
 
 Il dizionario contiene un elenco di parole. Le parole sono scritte di seguito, ciascuna su una riga.
 
@@ -127,7 +127,7 @@ Si sperimenti il funzionamento dell'applicazione considerando diversi valori per
 -- ``main_ex2`` deve ricevere come parametri il path del dizionario da usare come riferimento e il file da correggere, necessariamente in quest'ordine. Il risultato va stampato a schermo, con le parole ordinate come nel file da correggere. Per esempio:
 
 ```
-$ ./main_ex2 /tmp/data/dictionary.txt /tmp/data/correctme.txt 
+$ ./main_ex2 /tmp/data/items.txt /tmp/data/correctme.txt 
 cinqve
 perpeteva
 squola
