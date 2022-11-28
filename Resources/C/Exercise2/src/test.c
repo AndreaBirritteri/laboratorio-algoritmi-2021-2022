@@ -63,13 +63,13 @@ static void insert_one_element(void) {
 }
 
 static void insert_three_elements(void) {
-  insert_skip_list(string_skip_list, strings_to_insert[0]);
   insert_skip_list(string_skip_list, strings_to_insert[1]);
   insert_skip_list(string_skip_list, strings_to_insert[2]);
+  insert_skip_list(string_skip_list, strings_to_insert[0]);
 
-  insert_skip_list(float_skip_list, &floats_to_insert[0]);
   insert_skip_list(float_skip_list, &floats_to_insert[1]);
   insert_skip_list(float_skip_list, &floats_to_insert[2]);
+  insert_skip_list(float_skip_list, &floats_to_insert[0]);
 
   char *strings_found[3];
   strings_found[0] = NULL;
@@ -120,13 +120,13 @@ static void insert_three_elements(void) {
 }
 
 static void search_three_elements() {
-  insert_skip_list(string_skip_list, strings_to_insert[0]);
   insert_skip_list(string_skip_list, strings_to_insert[1]);
   insert_skip_list(string_skip_list, strings_to_insert[2]);
+  insert_skip_list(string_skip_list, strings_to_insert[0]);
 
-  insert_skip_list(float_skip_list, &floats_to_insert[0]);
   insert_skip_list(float_skip_list, &floats_to_insert[1]);
   insert_skip_list(float_skip_list, &floats_to_insert[2]);
+  insert_skip_list(float_skip_list, &floats_to_insert[0]);
 
   void *strings_found[3];
   strings_found[0] = search_skip_list(string_skip_list, strings_to_insert[0]);
