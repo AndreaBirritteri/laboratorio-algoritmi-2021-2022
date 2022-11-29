@@ -5,6 +5,13 @@
 #include "sorting.h"
 #include "ordered_array.h"
 
+//It searches the index where the element should be inserted
+//It accepts as input a pointer to an array, the range between
+// it has to find the index defined by low and high and
+// a pointer to the element
+//It returns the index
+//The input parameters cannot be NULL or out of bounds of the
+//array
 static size_t binary_search(OrderedArray *ordered_array, size_t low, size_t high, void *item) {
   size_t mid;
 
@@ -22,6 +29,12 @@ static size_t binary_search(OrderedArray *ordered_array, size_t low, size_t high
   return mid;
 }
 
+//It sorts an array using the insertion sort algorithm calling
+// the binarySearch to optimize the sorting.
+//It accepts as input a pointer to an array and the range
+// to be sorted.
+//The input parameters cannot be NULL or out of bounds of the
+//  array.
 static void insertion_sort_recursive(OrderedArray *ordered_array, size_t low, size_t high) {
   void *tmp;
 
@@ -42,12 +55,15 @@ static void insertion_sort_recursive(OrderedArray *ordered_array, size_t low, si
   }
 }
 
+//insertion sort wrapper
 void insertion_sort(OrderedArray *ordered_array) {
   ssize_t low = 0;
   ssize_t high = (ssize_t) (ordered_array->el_num - 1);
   insertion_sort_recursive(ordered_array, low, high);
 }
 
+//partition chooses the pivot element and swaps according to
+//the quick sort rules
 long partition(OrderedArray *ordered_array, ssize_t left, ssize_t right) {
 
   ssize_t pivotIndex = ((left + right) / 2);
@@ -78,6 +94,8 @@ long partition(OrderedArray *ordered_array, ssize_t left, ssize_t right) {
   return i;
 }
 
+//quick sort recursion method that uses the partition to divide
+//the array in left and right
 void quick_sort_recursion(OrderedArray *ordered_array, ssize_t left, ssize_t right) {
   long pi = partition(ordered_array, left, right);
 
@@ -87,6 +105,7 @@ void quick_sort_recursion(OrderedArray *ordered_array, ssize_t left, ssize_t rig
     quick_sort_recursion(ordered_array, pi, right);
 }
 
+//quick sort wrapper
 void quick_sort(OrderedArray *orderedArray) {
   quick_sort_recursion(orderedArray, 0, orderedArray->el_num - 1);
 }

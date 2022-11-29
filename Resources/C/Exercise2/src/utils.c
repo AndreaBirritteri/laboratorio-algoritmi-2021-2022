@@ -9,6 +9,8 @@ static int _string_comparator(char *a, char *b) {
   return strcmp(a, b);
 }
 
+//it returns 1 if the character is a punctuation symbol (or a space),
+//0 otherwise
 unsigned int _is_punctuation(const char character) {
   unsigned int is_punctuation = 0;
   char punctuation_symbols[] = {' ', '.', ',', ':'};
@@ -21,6 +23,8 @@ unsigned int _is_punctuation(const char character) {
   return is_punctuation;
 }
 
+//It prints the misspelled word in word_list if it can't find it
+//in the dictionary
 void print_typos(SkipList *dictionary, char **word_list, size_t word_list_length) {
   char *word_found;
 
@@ -32,6 +36,8 @@ void print_typos(SkipList *dictionary, char **word_list, size_t word_list_length
   }
 }
 
+//It creates the word list, given a text. word_list_size_argument
+//will contain the size of the char**
 char **load_text(const char *path, size_t *word_list_size_argument) {
   FILE *fp;
   fp = fopen(path, "r");
@@ -74,6 +80,7 @@ char **load_text(const char *path, size_t *word_list_size_argument) {
   return word_list;
 }
 
+//it loads the dictionary in the path inside a skip list
 SkipList *load_dictionary(const char *path) {
   size_t length = 0, word_length;
   SkipList *dictionary;

@@ -7,7 +7,7 @@ static int string_comparator(char *a, char *b) {
 }
 
 static int float_comparator(float *a, float *b) {
-  return (int)(a - b);
+  return (int) (a - b);
 }
 
 SkipList *string_skip_list, *float_skip_list;
