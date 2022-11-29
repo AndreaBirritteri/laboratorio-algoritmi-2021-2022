@@ -1,7 +1,7 @@
 #ifndef LIB_SORT_H
 #define LIB_SORT_H
 
-#define MAX_HEIGHT 4
+#define MAX_HEIGHT 50
 #include <stdio.h>
 
 typedef int (*skip_list_comparator)(const void *, const void *);
