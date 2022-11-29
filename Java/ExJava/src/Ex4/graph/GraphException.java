@@ -7,7 +7,7 @@ package Ex4.graph;
  * @author birritteri, rondinella
  */
 public class GraphException extends Exception {
-	public GraphException(String message) {
-		super(message);
-	}
+  public GraphException(String message) {
+    super(message);
+  }
 }

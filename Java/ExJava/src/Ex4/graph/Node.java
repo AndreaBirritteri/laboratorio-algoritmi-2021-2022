@@ -1,7 +1,6 @@
 package Ex4.graph;
 
 
-
 /**
  * It represents a node in Dijkstra.
  * It is defined the name of the interested node
@@ -14,15 +13,16 @@ package Ex4.graph;
  * @author birritteri, rondinella
  */
 public class Node<N, T extends Number> implements Comparable<Node<N, T>> {
-    public N node;
-    public T cost;
-    public Node(N node, T cost) {
-        this.node = node;
-        this.cost = cost;
-    }
+  public N node;
+  public T cost;
 
-    @Override
-    public int compareTo(Node o) {
-        return Double.compare(this.cost.doubleValue(), o.cost.doubleValue());
-    }
+  public Node(N node, T cost) {
+    this.node = node;
+    this.cost = cost;
+  }
+
+  @Override
+  public int compareTo(Node o) {
+    return Double.compare(this.cost.doubleValue(), o.cost.doubleValue());
+  }
 }

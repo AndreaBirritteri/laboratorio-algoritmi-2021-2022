@@ -15,45 +15,45 @@ import java.util.LinkedList;
 
 
 public class GraphUsage {
-    private static final Charset ENCODING = StandardCharsets.UTF_8;
+  private static final Charset ENCODING = StandardCharsets.UTF_8;
 
-    private static void loadFile(String filePath, Graph<String, Double> graph) throws IOException, GraphException {
-        Path inputFilePath = Paths.get(filePath);
+  private static void loadFile(String filePath, Graph<String, Double> graph) throws IOException, GraphException {
+    Path inputFilePath = Paths.get(filePath);
 
-        try (BufferedReader fileInputReader = Files.newBufferedReader(inputFilePath, ENCODING)) {
-            System.out.println("\nReading from " + filePath);
-            String line;
-            while ((line = fileInputReader.readLine()) != null) {
-                String[] lineElements = line.split(",");
-                graph.addEdge(lineElements[0], lineElements[1], Double.parseDouble(lineElements[2]));
-            }
-        }
-        System.out.println("Data loaded.");
+    try (BufferedReader fileInputReader = Files.newBufferedReader(inputFilePath, ENCODING)) {
+      System.out.println("\nReading from " + filePath);
+      String line;
+      while ((line = fileInputReader.readLine()) != null) {
+        String[] lineElements = line.split(",");
+        graph.addEdge(lineElements[0], lineElements[1], Double.parseDouble(lineElements[2]));
+      }
+    }
+    System.out.println("Data loaded.");
+  }
+
+  public static void main(String[] args) throws Exception {
+    long timer = System.nanoTime();
+    File file;
+
+    if (args.length < 1) {
+      throw new Exception("Usage: Graph <file_name>");
+    } else {
+      file = new File(args[0]);
     }
 
-    public static void main(String[] args) throws Exception {
-        long timer = System.nanoTime();
-        File file;
+    Graph<String, Double> graph = new Graph<>(false);
+    loadFile(file.getAbsolutePath(), graph);
 
-        if (args.length < 1) {
-            throw new Exception("Usage: Graph <file_name>");
-        } else {
-            file = new File(args[0]);
-        }
+    System.out.println("---------------Dijkstra---------------");
 
-        Graph<String, Double> graph = new Graph<>(false);
-        loadFile(file.getAbsolutePath(), graph);
+    graph.generateDijkstra("torino");
 
-        System.out.println("---------------Dijkstra---------------");
+    LinkedList<String> path = graph.getPathTo("cumiana");
 
-        graph.generateDijkstra("torino");
+    System.out.println(path);
+    System.out.println(graph.calcPathLengthKm(path) + "km");
 
-        LinkedList<String> path = graph.getPathTo("cumiana");
-
-        System.out.println(path);
-        System.out.println(graph.calcPathLengthKm(path) + "km");
-
-        timer = System.nanoTime() - timer;
-        System.out.println("Execution in " + (timer / 1000000000) + "s");
-    }
+    timer = System.nanoTime() - timer;
+    System.out.println("Execution in " + (timer / 1000000000) + "s");
+  }
 }
