@@ -99,7 +99,7 @@ public class Graph<N, T extends Number> {
     /**
      * It returns the direct attribute of Graph.
      *
-     * @return: true iff Graph is direct, else false.
+     * @return true iff Graph is direct, else false.
      */
     public boolean isDirect() {
         return direct;
@@ -112,7 +112,7 @@ public class Graph<N, T extends Number> {
      *
      * @param value: generic value to search in the Graph.
      * @throws GraphException iff parameters are null.
-     * @return: true iff there is a Node with this value in the Graph, else false.
+     * @return true iff there is a Node with this value in the Graph, else false.
      */
     public boolean hasNode(N value) throws GraphException {
         if (value == null)
@@ -129,7 +129,7 @@ public class Graph<N, T extends Number> {
      * @param src,dst: generic values that represent source and
      *                 destination of the edge
      * @throws GraphException iff parameters are null.
-     * @return: true iff there is an edge between source and destination in the
+     * @return true iff there is an edge between source and destination in the
      * Graph, else false.
      */
     public boolean hasEdge(N src, N dst) throws GraphException {
@@ -208,7 +208,7 @@ public class Graph<N, T extends Number> {
     /**
      * It returns the count of Nodes of the Graph.
      *
-     * @return: the integer number of Nodes in the Graph.
+     * @return the integer number of Nodes in the Graph.
      */
     public int getNodesCount() {
         return graph.size();
@@ -255,7 +255,7 @@ public class Graph<N, T extends Number> {
      *
      * @param node: the wanted Node.
      * @throws GraphException: iff the parameter is null.
-     * @return: ArrayList<Node < T>>, the adjacent list.
+     * @return ArrayList<Node <T>>, the adjacent list.
      */
     public List<Edge<N, T>> getAdjList(N node) throws GraphException {
         if (node == null)

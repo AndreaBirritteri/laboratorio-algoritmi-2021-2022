@@ -30,7 +30,7 @@ public class MinHeap<T extends Comparable<T>> {
     /**
      * It returns the left child of the passed index.
      *
-     * @return: return the value of the left child
+     * @return return the value of the left child
      */
     private int leftChild(int i) {
         return 2 * i + 1;
@@ -39,7 +39,7 @@ public class MinHeap<T extends Comparable<T>> {
     /**
      * It returns the right child of the passed index.
      *
-     * @return: return the value of the right child
+     * @return return the value of the right child
      */
     private int rightChild(int i) {
         return 2 * (i + 1);
@@ -49,7 +49,7 @@ public class MinHeap<T extends Comparable<T>> {
     /**
      * It returns the parent of the passed index.
      *
-     * @return: return the value of the parent
+     * @return return the value of the parent
      */
     private int parent(int i) {
         return (i - 1) / 2;
@@ -58,7 +58,7 @@ public class MinHeap<T extends Comparable<T>> {
     /**
      * It returns a boolean if the Heap is Empty or Not.
      *
-     * @return: true iff Heap is empty, else false.
+     * @return true iff Heap is empty, else false.
      */
     public boolean isEmpty() {
         return heap.isEmpty();
@@ -67,7 +67,7 @@ public class MinHeap<T extends Comparable<T>> {
     /**
      * It returns the Heap size.
      *
-     * @return: the integer number of Element in the Heap.
+     * @return the integer number of Element in the Heap.
      */
     public int size() {
         return heap.size();
@@ -126,7 +126,7 @@ public class MinHeap<T extends Comparable<T>> {
     /**
      * It extracts the min element
      *
-     * @return: the min generic value.
+     * @return the min generic value.
      */
     public T extract() {
         if (heap.isEmpty())
@@ -147,9 +147,9 @@ public class MinHeap<T extends Comparable<T>> {
      * It does the Decrease Key method
      *
      * @param i: index of the element
-     * @param key: value to decrease
+     * @param key: value decreased
      */
-    public void decreaseKey(int i, T key) throws MinHeapException {
+    public T decreaseKey(int i, T key) throws MinHeapException {
         if (heap.get(i).compareTo(key) < 0) {
             throw new MinHeapException("Key is larger than the original key");
         }
@@ -161,6 +161,13 @@ public class MinHeap<T extends Comparable<T>> {
             i = parent;
             parent = parent(parent);
         }
+
+        System.out.println(heap.get(0));
+        System.out.println(heap.get(1));
+        System.out.println(heap.get(2));
+
+
+        return heap.get(i);
     }
 
     private void swap(int i, int j) {
