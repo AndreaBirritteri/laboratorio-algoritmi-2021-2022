@@ -20,17 +20,17 @@ int main(int argc, char **argv) {
 
   SkipList *dictionary;
 
-  printf("Loading items...\n");
+  printf("Loading dictionary...\n");
   gettimeofday(&start, NULL);
   dictionary = load_dictionary(dictionary_path);
   gettimeofday(&end, NULL);
   time_taken = (double) end.tv_sec + (double) end.tv_usec / 1e6 - (double) start.tv_sec - (double) start.tv_usec / 1e6;
-  printf("Dictionary loaded in %fs!\n", time_taken);
+  printf("dictionary loaded in %fs!\n", time_taken);
 
 
   size_t number_of_words = 0;
   char **word_list;
-  printf("Loading word_list to check...\n");
+  printf("Loading word list to check...\n");
   gettimeofday(&start, NULL);
   word_list = load_text(text_path, &number_of_words);
   gettimeofday(&end, NULL);
