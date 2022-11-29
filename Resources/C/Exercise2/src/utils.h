@@ -3,7 +3,7 @@
 
 #include "skip_list.h"
 
-#define MAX_WORD_LENGTH 100
+#define MAX_WORD_LENGTH 20
 
 void print_typos(SkipList *dictionary, char **word_list, size_t word_list_length);
 
