@@ -97,8 +97,8 @@ Per "buona qualità" intendiamo codice ben modularizzato, ben commentato e ben t
 - tutti i nomi (es., nomi di variabili, di metodi, di classi, ecc.) *devono* essere significativi e in inglese;
 - il codice deve essere correttamente indentato; impostare l'indentazione a 2 caratteri (un'indentazione di 4 caratteri è ammessa ma scoraggiata) e impostare l'editor in modo che inserisca "soft tabs" (cioè, deve inserire il numero corretto di spazi invece che un carattere di tabulazione);
 - per dare i nomi agli identificatori, seguire le convenzioni in uso per il linguaggio scelto:
-  - Java: i nomi dei package sono tutti in minuscolo senza separazione fra le parole (es. thepackage); i nomi dei tipi (classi, interfacce, ecc.) iniziano con una lettera maiuscola e proseguono in camel case (es. TheClass), i nomi dei metodi e delle variabili iniziano con una lettera minuscola e proseguono in camel case (es. theMethod), i nomi delle costanti sono tutti in maiuscolo e in formato snake case (es. THE\_CONSTANT);
-  - C:  macro e costanti sono tutti in maiuscolo e in formato snake case (es. THE\_MACRO, THE\_CONSTANT); i nomi di tipo (e.g.  struct, typedefs, enums, ...) iniziano con una lettera maiuscola e proseguono in camel case (e.g., TheType, TheStruct); i nomi di funzione iniziano con una lettera minuscola e proseguono in snake case (e.g., the\_function());
+    - Java: i nomi dei package sono tutti in minuscolo senza separazione fra le parole (es. thepackage); i nomi dei tipi (classi, interfacce, ecc.) iniziano con una lettera maiuscola e proseguono in camel case (es. TheClass), i nomi dei metodi e delle variabili iniziano con una lettera minuscola e proseguono in camel case (es. theMethod), i nomi delle costanti sono tutti in maiuscolo e in formato snake case (es. THE\_CONSTANT);
+    - C:  macro e costanti sono tutti in maiuscolo e in formato snake case (es. THE\_MACRO, THE\_CONSTANT); i nomi di tipo (e.g.  struct, typedefs, enums, ...) iniziano con una lettera maiuscola e proseguono in camel case (e.g., TheType, TheStruct); i nomi di funzione iniziano con una lettera minuscola e proseguono in snake case (e.g., the\_function());
 - i file vanno salvati in formato UTF-8.
 
 # Consegne per gli esercizi
@@ -273,7 +273,7 @@ All'indirizzo
 ```
 https://datacloud.di.unito.it/index.php/s/taii8aA8rNnXgCN
 ```
-potete trovare un dizionario (`items.txt`) e un file da correggere (`correctme.txt`).
+potete trovare un dizionario (`dictionary.txt`) e un file da correggere (`correctme.txt`).
 
 Il dizionario contiene un elenco di parole. Le parole sono scritte di seguito, ciascuna su una riga.
 
@@ -294,7 +294,7 @@ Si sperimenti il funzionamento dell'applicazione considerando diversi valori per
 -- ``main_ex2`` deve ricevere come parametri il path del dizionario da usare come riferimento e il file da correggere, necessariamente in quest'ordine. Il risultato va stampato a schermo, con le parole ordinate come nel file da correggere. Per esempio:
 
 ```
-$ ./main_ex2 /tmp/data/items.txt /tmp/data/correctme.txt 
+$ ./main_ex2 /tmp/data/dictionary.txt /tmp/data/correctme.txt 
 cinqve
 perpeteva
 squola
@@ -329,7 +329,7 @@ complessità richiesta, in cui n indica il numero di elementi dello heap):
 - diminuzione del valore di un elemento - O(log n).
 
 Una descrizione della struttura dati Heap è riportata sui lucidi e le dispense fornite nella parte di teoria del corso,
- nonché sul testo Cormen et al, `Introduzione agli algoritmi e strutture dati`, McGraw-Hill, Terza edizione, 2010, nel capitolo `Heapsort`. In particolare, si suggerisce il riferimento al testo per tutti quegli aspetti non esplicitamente trattati a lezione.
+nonché sul testo Cormen et al, `Introduzione agli algoritmi e strutture dati`, McGraw-Hill, Terza edizione, 2010, nel capitolo `Heapsort`. In particolare, si suggerisce il riferimento al testo per tutti quegli aspetti non esplicitamente trattati a lezione.
 
 ### Unit Testing
 
