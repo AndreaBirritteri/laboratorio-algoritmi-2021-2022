@@ -6,7 +6,7 @@ package Ex3;
  * @author birritteri, rondinella
  */
 public class MinHeapException extends Exception {
-	public MinHeapException(String message) {
-		super(message);
-	}
+  public MinHeapException(String message) {
+    super(message);
+  }
 }
