@@ -10,7 +10,7 @@ import java.util.Objects;
  * It contains Min Heap, using generic type t
  *
  * @param <T>: type of the MinHeap elements
- * @author birritteri, valenzisi
+ * @author birritteri, rondinella
  */
 
 public class MinHeap<T extends Comparable<T>> {
