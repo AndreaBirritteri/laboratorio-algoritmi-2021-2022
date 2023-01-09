@@ -419,6 +419,10 @@ public class Graph<N, T extends Number> {
     return path;
   }
 
+  public Number getDistanceTo(N dest){
+    return Math.floor(distance.get(dest).doubleValue() / 10) / 100;
+  }
+
 }
 
 

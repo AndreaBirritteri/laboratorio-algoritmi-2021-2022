@@ -48,12 +48,14 @@ public class GraphUsage {
 
     graph.generateDijkstra("torino");
 
-    LinkedList<String> path = graph.getPathTo("cumiana");
+    LinkedList<String> path = graph.getPathTo("catania");
 
     System.out.println(path);
     System.out.println(graph.calcPathLengthKm(path) + "km");
 
     timer = System.nanoTime() - timer;
     System.out.println("Execution in " + (timer / 1000000000) + "s");
+    System.out.println(graph.getDistanceTo("catania") + "km");
+
   }
 }
