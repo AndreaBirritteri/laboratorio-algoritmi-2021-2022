@@ -342,34 +342,34 @@ public class Graph<N, T extends Number> {
         return;
       }
 
-      N u = heap.extract().node;
-      if (visited.contains(u)) {
+      N current = heap.extract().node;
+      if (visited.contains(current)) {
         continue;
       }
-      visited.add(u);
-      graph_adjacentNodes(u);
+      visited.add(current);
+      graph_adjacentNodes(current);
     }
   }
 
-  public void graph_adjacentNodes(N u) throws GraphException, MinHeapException {
+  public void graph_adjacentNodes(N current) throws GraphException, MinHeapException {
     double edgeDistance;
     double newDistance;
 
-    List<Edge<N, T>> adjList = this.getAdjList(u);
+    List<Edge<N, T>> adjList = this.getAdjList(current);
 
-    for (Edge<N, T> stringDoubleEdge : adjList) {
-      Node<N, T> v = new Node<>(stringDoubleEdge.getDstNode(), stringDoubleEdge.getLabel());
+    for (Edge<N, T> adjEdge : adjList) {
+      Node<N, T> next = new Node<>(adjEdge.getDstNode(), adjEdge.getLabel());
 
-      if (!visited.contains(v.node)) {
-        edgeDistance = v.cost.doubleValue();
-        newDistance = distance.get(u).doubleValue() + edgeDistance;
+      if (!visited.contains(next.node)) {
+        edgeDistance = next.cost.doubleValue();
+        newDistance = distance.get(current).doubleValue() + edgeDistance;
 
-        if (newDistance < distance.get(v.node).doubleValue()) {
-          distance.replace(v.node, newDistance);
-          paths.put(v.node, u);
+        if (newDistance < distance.get(next.node).doubleValue()) {
+          distance.replace(next.node, newDistance);
+          paths.put(next.node, current);
         }
 
-        heap.insert(new Node<>(v.node, distance.get(v.node)));
+        heap.insert(new Node<>(next.node, distance.get(next.node)));
       }
     }
   }
