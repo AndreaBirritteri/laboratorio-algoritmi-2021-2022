@@ -372,6 +372,7 @@ public class Graph<N, T extends Number> {
         heap.insert(new Node<>(next.node, distance.get(next.node)));
       }
     }
+
   }
 
   /**
