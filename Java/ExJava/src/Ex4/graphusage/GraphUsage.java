@@ -56,8 +56,6 @@ public class GraphUsage {
     timer = System.nanoTime() - timer;
     System.out.println("Execution in " + (timer / 1000000000) + "s");
     System.out.println(graph.getDistanceTo("catania") + "km");
-    System.out.println(graph.getDistanceTo("catania") + "km");
-
 
   }
 }
